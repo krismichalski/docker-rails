@@ -22,8 +22,15 @@ Based on [Alpine Linux](https://www.alpinelinux.org/). Very light. Weighs only ~
 ## Versions
 - Ready:
     * alpine 3.4, ruby 2.3, rails 5.0.0
+    * alpine 3.4, ruby 2.3, rails 4.2.6
 - In plans:
     * debian jessie, ruby 2.3, rails 5.0.0
+
+## Quick start
+Execute this command in empty folder:
+```bash
+docker run -it -v $(pwd):/home/app/webapp -p 3000:3000 nooulaif/rails:latest
+```
 
 ## Example docker-compose.yml with all options
 ```yaml
@@ -75,6 +82,79 @@ volumes:
 docker-compose -p example up -d
 docker attach example_api_1
 ```
+
+## Modify existing rails project to use with this image
+You need to add these gems to your Gemfile:
+```ruby
+gem 'pry-rails', '= 0.3.4', group: :development
+gem 'nokogiri', '= 1.6.8'
+gem 'lograge', '~> 0.3.6'
+gem 'logstash-event', '~> 1.2.02'
+```
+Add these lines to config/application.rb
+```ruby
+config.logger = Logger.new(STDOUT)
+config.lograge.enabled = true
+config.lograge.formatter = Lograge::Formatters::Logstash.new
+```
+And these to config/environments/development.rb
+```ruby
+config.web_console.whitelisted_ips = "172.0.0.0/8" if defined?(WebConsole)
+```
+Lastly your config/database.yml must use environments variables like so:
+```yaml
+default: &default
+  adapter: <%= ENV['DB_ADAPTER'] %>
+  host: <%= ENV['DB_HOST'] %>
+  username: <%= ENV['DB_USER'] %>
+  password: <%= ENV['DB_PASS'] %>
+```
+And you need to set them appropriately.
+
+Also make sure all files in bin/ directory uses:
+```
+#!/usr/bin/env ruby
+```
+
+## Gems with native extensions
+If you ever encounter problem similar to this:
+```
+Gem::Ext::BuildError: ERROR: Failed to build gem native extension.
+```
+It means one of gems in your Gemfile requires some building libraries which, for the sake of size, this image do not provide.
+However it's relatively easy to get this working and keep small image. You just need to build your image on top of this.
+
+Create new file in root of your rails project and name it Dockerfile.
+Inside it put something along the lines:
+```dockerfile
+FROM nooulaif/rails:latest
+MAINTAINER you@example.com
+
+RUN apk add --no-cache --virtual build-dependencies \
+    build-base ruby-dev libc-dev \
+ && gem install some-gem-with-native-extension \
+ && apk del build-dependencies \
+ && find / -type f -iname '*.apk-new' -delete \
+ && rm -rf '/var/cache/apk/*'
+```
+And then in your docker-compose.yml instead of:
+```yml
+image: nooulaif/rails:latest
+```
+put
+```yml
+build: .
+```
+Run
+```bash
+docker-compose build && docker-compose up
+```
+and check if this solved a problem.
+Don't forget to remove your bundle volume
+```bash
+docker volume rm example_bundle # if you named your project example and your bundle volume bundle
+```
+otherwise it will override your newly installed gem.
 
 ## License
 Released under the MIT License See [LICENSE](LICENSE) file for details.
