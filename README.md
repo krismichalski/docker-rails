@@ -1,11 +1,18 @@
 # docker-rails
 
 Minimal, ready to use [Docker](https://www.docker.com/) image for running [Ruby on Rails](http://rubyonrails.org/) applications.
-Based on [Alpine Linux](https://www.alpinelinux.org/). Very light. Weighs only ~150MB, which is about 4 times less than [official image](https://hub.docker.com/_/rails/).
+Based on [Alpine Linux](https://www.alpinelinux.org/).
+
+Very light. Weighs only ~150MB, which is about 4 times less than [official image](https://hub.docker.com/_/rails/).
+
+## Supported tags and respective `Dockerfile` links
+
+- [`alpine-5.0-001`, `alpine-5.0`, `alpine-5`, `latest`](https://github.com/nooulaif/docker-rails/blob/master/alpine-5.0.dockerfile)
+- [`alpine-4.2-001`, `alpine-4.2`, `alpine-4`](https://github.com/nooulaif/docker-rails/blob/master/alpine-4.2.dockerfile)
 
 ## Features
 - Automatically creates and prepares new rails app
-    * Only if in empty / with docker-compose.yml only folder
+    * If in empty / with docker-compose.yml only folder
     * With correct app name of choise (based on environment variable APP_NAME)
     * Modyfies database.yml to use environment variables DB_ADAPTER, DB_HOST, DB_USER, DB_PASS
     * Ability to pass any additional arguments with RAILS_NEW_ARGS environment variable
@@ -32,13 +39,15 @@ Execute this command in empty folder:
 ```bash
 docker run -it -v $(pwd):/home/app/webapp -p 3000:3000 nooulaif/rails:latest
 ```
+Although I do recommend method with docker-compose.yml below which gives you possibility to
+mount installed gems into shared volume for ever faster development.
 
 ## Example docker-compose.yml with all options
 ```yaml
 version: '2'
 services:
   api:
-    image: nooulaif/rails:5.0.0
+    image: nooulaif/rails:latest
     environment:
       - APP_NAME=example
       - DB_HOST=db # name of service below
@@ -51,7 +60,7 @@ services:
       # - RAILS_NEW_ARGS='--api'
     volumes:
       - ./:/home/app/webapp
-      - bundle:/home/app/bundle
+      - bundle_data:/home/app/bundle
     depends_on:
       - db
     ports:
@@ -74,7 +83,7 @@ services:
       # - MYSQL_ALLOW_EMPTY_PASSWORD=yes
 
 volumes:
-  bundle:
+  bundle_data:
     driver: local
   db_data:
     driver: local
@@ -82,6 +91,14 @@ volumes:
 ```bash
 docker-compose -p example up -d
 docker attach example_api_1
+```
+To stop:
+```bash
+docker-compose stop
+```
+To completely remove:
+```
+docker-compose down -v # also removes volumes
 ```
 
 ## Modify existing rails project to use with this image
@@ -92,13 +109,13 @@ gem 'nokogiri', '= 1.6.8'
 gem 'lograge', '~> 0.3.6'
 gem 'logstash-event', '~> 1.2.02'
 ```
-Add these lines to config/application.rb
+Add these lines to config/application.rb:
 ```ruby
 config.logger = Logger.new(STDOUT)
 config.lograge.enabled = true
 config.lograge.formatter = Lograge::Formatters::Logstash.new
 ```
-And these to config/environments/development.rb
+And these to config/environments/development.rb:
 ```ruby
 config.web_console.whitelisted_ips = "172.0.0.0/8" if defined?(WebConsole)
 ```
@@ -142,20 +159,20 @@ And then in your docker-compose.yml instead of:
 ```yml
 image: nooulaif/rails:latest
 ```
-put
+put:
 ```yml
 build: .
 ```
-Run
+Run:
 ```bash
 docker-compose build && docker-compose up
 ```
 and check if this solved a problem.
-Don't forget to remove your bundle volume
+Don't forget to remove your bundle volume:
 ```bash
-docker volume rm example_bundle # if you named your project example and your bundle volume bundle
+docker volume rm example_bundle_data # use docker volume ls to find yours
 ```
 otherwise it will override your newly installed gem.
 
 ## License
-Released under the MIT License See [LICENSE](LICENSE) file for details.
+Released under the MIT License. See [LICENSE](https://github.com/nooulaif/docker-rails/blob/master/LICENSE) file for details.
