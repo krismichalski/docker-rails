@@ -1,7 +1,7 @@
 #!/bin/bash
 : ${APP_NAME:=example}
 : ${DB_HOST:=}
-: ${DB_ADAPTER:=}
+: ${DB_ADAPTER:=sqlite3}
 : ${DB_USER:=}
 : ${DB_PASS:=}
 : ${RAILS_NEW_ARGS:=}

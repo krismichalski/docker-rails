@@ -11,7 +11,8 @@ ENV RUBY_MAJOR=2.3 \
     BUNDLE_PATH=/home/app/bundle \
     BUNDLE_APP_CONFIG=/home/app/bundle \
     APP=/home/app/webapp \
-    PATH=/home/app/webapp/bin:/home/app/bundle/bin:$PATH
+    PATH=/home/app/webapp/bin:/home/app/bundle/bin:$PATH \
+    DB_ADAPTER=sqlite3
 
 # Install ruby2.3, bash, less and nodejs
 # Create app directory, set permissions and set alias to pry from irb
