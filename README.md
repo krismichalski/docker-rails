@@ -75,3 +75,6 @@ volumes:
 docker-compose -p example up -d
 docker attach example_api_1
 ```
+
+## License
+Released under the MIT License See [LICENSE](LICENSE) file for details.
