@@ -25,6 +25,7 @@ Based on [Alpine Linux](https://www.alpinelinux.org/). Very light. Weighs only ~
     * alpine 3.4, ruby 2.3, rails 4.2.6
 - In plans:
     * debian jessie, ruby 2.3, rails 5.0.0
+    * debian jessie, ruby 2.3, rails 4.2.6
 
 ## Quick start
 Execute this command in empty folder:
