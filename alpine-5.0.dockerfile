@@ -16,7 +16,7 @@ ENV RUBY_MAJOR=2.3 \
 
 # Install ruby2.3, bash, less and nodejs
 # Create app directory, set permissions and set alias to pry from irb
-# Install bundler, rails, database adapters, pry-rails, nokogiri
+# Install bundler, rails, database adapters, nokogiri
 #   and some other gems which require native extension building
 # Remove cache
 RUN apk add --no-cache \
@@ -43,7 +43,6 @@ RUN apk add --no-cache \
  && su -m app -c 'gem install -N -i "$GEM_HOME" pg -v 0.18.4' \
  && su -m app -c 'gem install -N -i "$GEM_HOME" mysql2 -v 0.4.4' \
  && su -m app -c 'gem install -N -i "$GEM_HOME" sqlite3 -v 1.3.11' \
- && su -m app -c 'gem install -N -i "$GEM_HOME" pry-rails -v 0.3.4' \
  && su -m app -c 'gem install -N -i "$GEM_HOME" nokogiri -v 1.6.8' \
  && su -m app -c 'gem install -N -i "$GEM_HOME" puma -v 3.4.0' \
  && su -m app -c 'gem install -N -i "$GEM_HOME" byebug -v 9.0.5' \

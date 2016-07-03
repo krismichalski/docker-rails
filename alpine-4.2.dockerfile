@@ -43,7 +43,6 @@ RUN apk add --no-cache \
  && su -m app -c 'gem install -N -i "$GEM_HOME" pg -v 0.18.4' \
  && su -m app -c 'gem install -N -i "$GEM_HOME" mysql2 -v 0.4.4' \
  && su -m app -c 'gem install -N -i "$GEM_HOME" sqlite3 -v 1.3.11' \
- && su -m app -c 'gem install -N -i "$GEM_HOME" pry-rails -v 0.3.4' \
  && su -m app -c 'gem install -N -i "$GEM_HOME" nokogiri -v 1.6.8' \
  && su -m app -c 'gem install -N -i "$GEM_HOME" binding_of_caller -v 0.7.2' \
  && su -m app -c 'gem install -N -i "$GEM_HOME" byebug -v 9.0.5' \
