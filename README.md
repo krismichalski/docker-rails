@@ -7,8 +7,8 @@ Very light. Weighs only ~150MB, which is about 4 times less than [official image
 
 ## Supported tags and respective `Dockerfile` links
 
-- [`alpine-5.0-001`, `alpine-5.0`, `alpine-5`, `latest`](https://github.com/nooulaif/docker-rails/blob/master/alpine-5.0.dockerfile)
-- [`alpine-4.2-001`, `alpine-4.2`, `alpine-4`](https://github.com/nooulaif/docker-rails/blob/master/alpine-4.2.dockerfile)
+- [`alpine-5.0-v002`, `alpine-5.0`, `alpine-5`, `latest`](https://github.com/nooulaif/docker-rails/blob/master/alpine-5.0.dockerfile)
+- [`alpine-4.2-v002`, `alpine-4.2`, `alpine-4`](https://github.com/nooulaif/docker-rails/blob/master/alpine-4.2.dockerfile)
 
 ## Features
 - Automatically creates and prepares new rails app
