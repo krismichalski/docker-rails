@@ -7,8 +7,8 @@ Very light. Weighs only ~150MB, which is about 4 times less than [official image
 
 ## Supported tags and respective `Dockerfile` links
 
-- [`alpine-5.0-v002`, `alpine-5.0`, `alpine-5`, `latest`](https://github.com/nooulaif/docker-rails/blob/master/alpine-5.0.dockerfile)
-- [`alpine-4.2-v002`, `alpine-4.2`, `alpine-4`](https://github.com/nooulaif/docker-rails/blob/master/alpine-4.2.dockerfile)
+- [`alpine-5.0-v003`, `alpine-5.0`, `alpine-5`, `latest`](https://github.com/nooulaif/docker-rails/blob/master/alpine-5.0.dockerfile)
+- [`alpine-4.2-v003`, `alpine-4.2`, `alpine-4`](https://github.com/nooulaif/docker-rails/blob/master/alpine-4.2.dockerfile)
 
 ## Features
 - Automatically creates and prepares new rails app
@@ -56,7 +56,7 @@ services:
       # - DB_ADAPTER=mysql2
       # - DB_ADAPTER=sqlite3
       - DB_USER=postgres
-      # - DB_USER=root
+      # - DB_USER=root # for mysql
       # - DB_PASS=password
       # - RAILS_NEW_ARGS='--api'
     volumes:
@@ -82,6 +82,8 @@ services:
       # - MYSQL_ROOT_PASSWORD=password
       # or empty root password
       # - MYSQL_ALLOW_EMPTY_PASSWORD=yes
+    logging:
+      driver: none
 
 volumes:
   bundle_data:
@@ -100,6 +102,7 @@ docker-compose stop
 ```
 To completely remove:
 ```
+docker-compose down
 docker-compose down -v # also removes volumes
 ```
 

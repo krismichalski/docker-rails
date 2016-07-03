@@ -25,5 +25,8 @@ test "$(ls -A /home/app/webapp | grep -v 'docker-compose.yml')" || ( \
 # remove pids because sometimes they cause problems
 rm -rf tmp/pids
 
+# wait 3 seconds for database to start unless sqlite3
+if [[ "$DB_ADAPTER" != "sqlite3" ]]; then sleep 3; fi
+
 # run bundle install, rake db:migrate and rails server on every start
 (bundle check || (echo 'running bundle install...' && bundle install)) && rake db:migrate && rails server -p 3000 -b 0.0.0.0
