@@ -1,6 +1,6 @@
 # docker-rails
 
-Minimal, ready to use [Docker](https://www.docker.com/) image for running [Ruby on Rails](http://rubyonrails.org/) applications.
+Minimal, ready to use [Docker](https://www.docker.com/) image for running [Ruby on Rails](http://rubyonrails.org/) (5 & 4) applications.
 Based on [Alpine Linux](https://www.alpinelinux.org/).
 
 Very light. Weighs only ~150MB, which is about 4 times less than [official image](https://hub.docker.com/_/rails/).
@@ -22,8 +22,8 @@ Very light. Weighs only ~150MB, which is about 4 times less than [official image
 - Modyfies log output to stdout and formats it for [Logstash](https://www.elastic.co/products/logstash)
 - In development adds docker network as trusted for web console
 - Includes [pry](http://pryrepl.org/) for easier debugging
-    * In Alpine irb is buggy [libedit-dev vs libreadline-dev](https://github.com/docker-library/ruby/issues/75), so there is an alias to pry
-- Creates user with UID and GUI 1000 so it match defaults for first non-root user on Linux hosts
+    * In Alpine irb is buggy [(libedit-dev vs libreadline-dev)](https://github.com/docker-library/ruby/issues/75), so there is an alias to pry
+- Creates user with UID and GUI 1000 so it matches defaults for first non-root user on Linux hosts
     * Thanks to that there are no problems with permissions on shared volumes (workaround until [docker solves this](https://github.com/docker/docker/issues/2259))
 
 ## Versions
@@ -42,7 +42,8 @@ docker run -it -v $(pwd):/home/app/webapp -p 3000:3000 nooulaif/rails:latest
 Although I do recommend method with docker-compose.yml below which gives you possibility to
 mount installed gems into shared volume for ever faster development.
 
-## Example docker-compose.yml with all options
+## Example with [docker-compose](https://github.com/docker/compose) and all options
+In new, empty folder add file docker-compose.yml with following content:
 ```yaml
 version: '2'
 services:
@@ -88,6 +89,7 @@ volumes:
   db_data:
     driver: local
 ```
+Next run these commands:
 ```bash
 docker-compose -p example up -d
 docker attach example_api_1
@@ -173,6 +175,19 @@ Don't forget to remove your bundle volume:
 docker volume rm example_bundle_data # use docker volume ls to find yours
 ```
 otherwise it will override your newly installed gem.
+
+## Supported Docker versions
+This image was tested with Docker version 1.11.2.
+
+I would be very pleased to hear whether or not it works on older versions as well.
+
+## Issues
+If you have any problems with or questions about this image, please contact me through a [GitHub issue](https://github.com/nooulaif/docker-rails/issues).
+
+## Contributing
+You are invited to contribute new features, fixes, or updates, large or small.
+
+I'm always thrilled to receive pull requests, and do my best to process them as fast as I can.
 
 ## License
 Released under the MIT License. See [LICENSE](https://github.com/nooulaif/docker-rails/blob/master/LICENSE) file for details.
