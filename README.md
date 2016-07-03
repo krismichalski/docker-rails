@@ -47,7 +47,7 @@ In new, empty folder add file docker-compose.yml with following content:
 ```yaml
 version: '2'
 services:
-  api:
+  app:
     image: nooulaif/rails:latest
     environment:
       - APP_NAME=example
@@ -94,7 +94,7 @@ volumes:
 Next run these commands:
 ```bash
 docker-compose -p example up -d
-docker attach example_api_1
+docker attach example_app_1
 ```
 To stop:
 ```bash
@@ -137,6 +137,10 @@ And you need to set them appropriately.
 Also make sure all files in bin/ directory uses:
 ```
 #!/usr/bin/env ruby
+```
+If you need to recreate database in existing rails project run:
+```bash
+docker-compose run --rm app /bin/bash -c 'bundle install && rake db:create'
 ```
 
 ## Gems with native extensions
