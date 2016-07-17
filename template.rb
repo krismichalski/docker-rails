@@ -1,6 +1,4 @@
-gem 'pry-rails', '= 0.3.4', group: :development
-gem 'nokogiri', '= 1.6.8'
-
+gem 'pry-byebug', '~> 3.4.0', group: :development
 gem 'lograge', '~> 0.3.6'
 gem 'logstash-event', '~> 1.2.02'
 

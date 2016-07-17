@@ -1,14 +1,16 @@
 # docker-rails
 
-Minimal, ready to use [Docker](https://www.docker.com/) image for running [Ruby on Rails](http://rubyonrails.org/) (5 & 4) applications.
-Based on [Alpine Linux](https://www.alpinelinux.org/).
-
-Very light. Weighs only ~150MB, which is about 4 times less than [official image](https://hub.docker.com/_/rails/).
+Ready to use [Docker](https://www.docker.com/) image for running [Ruby on Rails](http://rubyonrails.org/) (5 & 4) applications.
+Based on [official Ruby images](https://hub.docker.com/_/ruby/).
 
 ## Supported tags and respective `Dockerfile` links
 
-- [`alpine-5.0-v003`, `alpine-5.0`, `alpine-5`, `latest`](https://github.com/nooulaif/docker-rails/blob/master/alpine-5.0.dockerfile)
-- [`alpine-4.2-v003`, `alpine-4.2`, `alpine-4`](https://github.com/nooulaif/docker-rails/blob/master/alpine-4.2.dockerfile)
+- [`5`, `latest`](https://github.com/nooulaif/docker-rails/blob/master/5.dockerfile)
+- [`5-slim`](https://github.com/nooulaif/docker-rails/blob/master/5-slim.dockerfile)
+- [`5-alpine`](https://github.com/nooulaif/docker-rails/blob/master/5-alpine.dockerfile)
+- [`4`](https://github.com/nooulaif/docker-rails/blob/master/4.dockerfile)
+- [`4-slim`](https://github.com/nooulaif/docker-rails/blob/master/4-slim.dockerfile)
+- [`4-alpine`](https://github.com/nooulaif/docker-rails/blob/master/4-alpine.dockerfile)
 
 ## Features
 - Automatically creates and prepares new rails app
@@ -16,23 +18,13 @@ Very light. Weighs only ~150MB, which is about 4 times less than [official image
     * With correct app name of choise (based on environment variable APP_NAME)
     * Modyfies database.yml to use environment variables DB_ADAPTER, DB_HOST, DB_USER, DB_PASS
     * Ability to pass any additional arguments with RAILS_NEW_ARGS environment variable
-- Nokogiri, BCrypt, PostgreSQL, MySQL and SQLite gems native extensions preinstalled
 - On every restart checks if bundle install is necessary and if so runs it
 - Runs rake db:migrate on every restart for quick development
 - Modyfies log output to stdout and formats it for [Logstash](https://www.elastic.co/products/logstash)
 - In development adds docker network as trusted for web console
 - Includes [pry](http://pryrepl.org/) for easier debugging
-    * In Alpine irb is buggy [(libedit-dev vs libreadline-dev)](https://github.com/docker-library/ruby/issues/75), so there is an alias to pry
 - Creates user with UID and GUI 1000 so it matches defaults for first non-root user on Linux hosts
     * Thanks to that there are no problems with permissions on shared volumes (workaround until [docker solves this](https://github.com/docker/docker/issues/2259))
-
-## Versions
-- Ready:
-    * alpine 3.4, ruby 2.3, rails 5.0.0
-    * alpine 3.4, ruby 2.3, rails 4.2.6
-- In plans:
-    * debian jessie, ruby 2.3, rails 5.0.0
-    * debian jessie, ruby 2.3, rails 4.2.6
 
 ## Quick start
 Execute this command in empty folder:
@@ -109,8 +101,7 @@ docker-compose down -v # also removes volumes
 ## Modify existing rails project to use with this image
 You need to add these gems to your Gemfile:
 ```ruby
-gem 'pry-rails', '= 0.3.4', group: :development
-gem 'nokogiri', '= 1.6.8'
+gem 'pry-byebug', '~> 3.4.0', group: :development
 gem 'lograge', '~> 0.3.6'
 gem 'logstash-event', '~> 1.2.02'
 ```
@@ -138,50 +129,10 @@ Also make sure all files in bin/ directory uses:
 ```
 #!/usr/bin/env ruby
 ```
-If you need to recreate database in existing rails project run:
+If you need to recreate database run:
 ```bash
 docker-compose run --rm app /bin/bash -c 'bundle install && rake db:create'
 ```
-
-## Gems with native extensions
-If you ever encounter problem similar to this:
-```
-Gem::Ext::BuildError: ERROR: Failed to build gem native extension.
-```
-It means one of gems in your Gemfile requires some building libraries which, for the sake of size, this image do not provide.
-However it's relatively easy to get this working and keep small image. You just need to build your image on top of this.
-
-Create new file in root of your rails project and name it Dockerfile.
-Inside it put something along the lines:
-```dockerfile
-FROM nooulaif/rails:latest
-MAINTAINER you@example.com
-
-RUN apk add --no-cache --virtual build-dependencies \
-    build-base ruby-dev libc-dev \
- && gem install some-gem-with-native-extension \
- && apk del build-dependencies \
- && find / -type f -iname '*.apk-new' -delete \
- && rm -rf '/var/cache/apk/*'
-```
-And then in your docker-compose.yml instead of:
-```yml
-image: nooulaif/rails:latest
-```
-put:
-```yml
-build: .
-```
-Run:
-```bash
-docker-compose build && docker-compose up
-```
-and check if this solved a problem.
-Don't forget to remove your bundle volume:
-```bash
-docker volume rm example_bundle_data # use docker volume ls to find yours
-```
-otherwise it will override your newly installed gem.
 
 ## Supported Docker versions
 This image was tested with Docker version 1.11.2.
