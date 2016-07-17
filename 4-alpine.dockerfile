@@ -2,7 +2,8 @@ FROM ruby:2.3-alpine
 MAINTAINER contact@nooulaif.com
 
 # Set all environment variables at once
-ENV RUBYGEMS_VERSION=2.6.4 \
+ENV GOSU_VERSION=1.9 \
+    RUBYGEMS_VERSION=2.6.4 \
     BUNDLER_VERSION=1.12.5 \
     RAILS_VERSION=4.2.7 \
     GEM_HOME=/home/app/bundle \
@@ -24,6 +25,16 @@ RUN apk add --no-cache \
     sqlite-dev postgresql-dev mysql-dev \
     libxml2-dev libxslt-dev \
     tzdata \
+    dpkg gnupg openssl \
+ && dpkgArch="$(dpkg --print-architecture | awk -F- '{ print $NF }')" \
+ && wget -O /usr/local/bin/gosu "https://github.com/tianon/gosu/releases/download/$GOSU_VERSION/gosu-$dpkgArch" \
+ && wget -O /usr/local/bin/gosu.asc "https://github.com/tianon/gosu/releases/download/$GOSU_VERSION/gosu-$dpkgArch.asc" \
+ && export GNUPGHOME="$(mktemp -d)" \
+ && gpg --keyserver ha.pool.sks-keyservers.net --recv-keys B42F6819007F00F88E364FD4036A9C25BF357DD4 \
+ && gpg --batch --verify /usr/local/bin/gosu.asc /usr/local/bin/gosu \
+ && rm -r "$GNUPGHOME" /usr/local/bin/gosu.asc \
+ && chmod +x /usr/local/bin/gosu \
+ && gosu nobody true \
  && addgroup -g 1000 app \
  && adduser -u 1000 -D -G app -s /bin/bash app \
  && mkdir -p "$APP" "$GEM_HOME/bin" \
@@ -38,8 +49,8 @@ RUN apk add --no-cache \
  && find / -type f -iname '*.apk-new' -delete \
  && rm -rf '/var/cache/apk/*' '/tmp/*' '/var/tmp/*'
 
-USER app
 WORKDIR $APP
+COPY start.sh template.rb entrypoint.sh /home/app/
 
-COPY start.sh template.rb /home/app/
-CMD /home/app/start.sh
+ENTRYPOINT ["/home/app/entrypoint.sh"]
+CMD ["/home/app/start.sh"]

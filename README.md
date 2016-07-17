@@ -13,6 +13,7 @@ Based on [official Ruby images](https://hub.docker.com/_/ruby/).
 - [`4-alpine`](https://github.com/nooulaif/docker-rails/blob/master/4-alpine.dockerfile)
 
 ## Features
+- Includes [gosu](https://github.com/tianon/gosu) to better handle su and sudo commands
 - Automatically creates and prepares new rails app
     * If in empty / with docker-compose.yml only folder
     * With correct app name of choise (based on environment variable APP_NAME)
@@ -25,6 +26,7 @@ Based on [official Ruby images](https://hub.docker.com/_/ruby/).
 - Includes [pry](http://pryrepl.org/) for easier debugging
 - Creates user with UID and GUI 1000 so it matches defaults for first non-root user on Linux hosts
     * Thanks to that there are no problems with permissions on shared volumes (workaround until [docker solves this](https://github.com/docker/docker/issues/2259))
+    * There is possibility to use different number by passing LOCAL_USER_ID
 
 ## Quick start
 Execute this command in empty folder:
@@ -51,6 +53,7 @@ services:
       # - DB_USER=root # for mysql
       # - DB_PASS=password
       # - RAILS_NEW_ARGS='--api'
+      # - LOCAL_USER_ID=9999
     volumes:
       - ./:/home/app/webapp
       - bundle_data:/home/app/bundle
