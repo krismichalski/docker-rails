@@ -5,6 +5,7 @@
 : ${DB_USER:=}
 : ${DB_PASS:=}
 : ${RAILS_NEW_ARGS:=}
+: ${PREPARE_ONLY:=false}
 RAILS_NEW_DB_ADAPTER=${DB_ADAPTER/mysql2/mysql}
 RAILS_NEW_ARGS=${RAILS_NEW_ARGS%\"}
 RAILS_NEW_ARGS=${RAILS_NEW_ARGS%\'}
@@ -22,11 +23,14 @@ test "$(ls -A /home/app/webapp | grep -v 'docker-compose.yml\|.bundle')" || ( \
   (bundle check || (echo 'running bundle install...' && bundle install)) && rake db:create
 )
 
-# remove pids because sometimes they cause problems
-rm -rf tmp/pids
+# do not execute on travis tests
+if [[ "$PREPARE_ONLY" != "true" ]]; then
+  # remove pids because sometimes they cause problems
+  rm -rf tmp/pids
 
-# wait 3 seconds for database to start unless sqlite3
-if [[ "$DB_ADAPTER" != "sqlite3" ]]; then sleep 3; fi
+  # wait 3 seconds for database to start unless sqlite3
+  if [[ "$DB_ADAPTER" != "sqlite3" ]]; then sleep 3; fi
 
-# run bundle install, rake db:migrate and rails server on every start
-(bundle check || (echo 'running bundle install...' && bundle install)) && rake db:migrate && rails server -p 3000 -b 0.0.0.0
+  # run bundle install, rake db:migrate and rails server on every start
+  (bundle check || (echo 'running bundle install...' && bundle install)) && rake db:migrate && rails server -p 3000 -b 0.0.0.0
+fi

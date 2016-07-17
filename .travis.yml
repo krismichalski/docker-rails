@@ -1,0 +1,46 @@
+branches:
+  only:
+    - travis-ci
+language: ruby
+sudo: required
+services:
+  - docker
+
+env:
+  global:
+    - DOCKER_VERSION=1.11.2-0~trusty
+    - DOCKER_COMPOSE_VERSION=1.7.1
+  matrix:
+    - TAG=5
+    - TAG=5-slim
+    - TAG=5-alpine
+    - TAG=4
+    - TAG=4-slim
+    - TAG=4-alpine
+
+# http://graysonkoonce.com/managing-docker-and-docker-compose-versions-on-travis-ci/
+before_install:
+  # list docker-engine versions
+  - apt-cache madison docker-engine
+
+  # upgrade docker-engine to specific version
+  - sudo apt-get -o Dpkg::Options::="--force-confnew" install -y docker-engine=${DOCKER_VERSION}
+
+  # reinstall docker-compose at specific version
+  - sudo rm /usr/local/bin/docker-compose
+  - curl -L https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-`uname -s`-`uname -m` > docker-compose
+  - chmod +x docker-compose
+  - sudo mv docker-compose /usr/local/bin
+  - docker version
+  - docker-compose version
+
+script:
+  - docker build -f ${TAG}.dockerfile -t nooulaif/rails:${TAG} .
+  - cd test
+  - sed -i "s/latest/${TAG}/g" docker-compose.yml
+  - export TRAVIS_USER_ID=$(id -u)
+  - docker-compose -p example up
+  - docker logs example_app_1 | grep 'Bundle complete!'
+  - ls db | grep '.sqlite3'
+  - gem install pg
+  - gem install mysql

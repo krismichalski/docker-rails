@@ -1,0 +1,11 @@
+version: '2'
+services:
+  app:
+    image: nooulaif/rails:latest
+    environment:
+      - APP_NAME=example
+      - DB_ADAPTER=sqlite3
+      - PREPARE_ONLY=true
+      - LOCAL_USER_ID=${TRAVIS_USER_ID}
+    volumes:
+      - ./:/home/app/webapp
