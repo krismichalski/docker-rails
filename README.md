@@ -1,4 +1,4 @@
-# docker-rails
+# docker-rails [![Build Status](https://travis-ci.org/nooulaif/docker-rails.svg?branch=travis-ci)](https://travis-ci.org/nooulaif/docker-rails)
 
 Ready to use [Docker](https://www.docker.com/) image for running [Ruby on Rails](http://rubyonrails.org/) (5 & 4) applications.
 Based on [official Ruby images](https://hub.docker.com/_/ruby/).
