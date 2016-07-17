@@ -11,8 +11,8 @@ RAILS_NEW_ARGS=${RAILS_NEW_ARGS%\'}
 RAILS_NEW_ARGS=${RAILS_NEW_ARGS#\"}
 RAILS_NEW_ARGS=${RAILS_NEW_ARGS#\'}
 
-# this is only run if in empty folder or with docker-compose.yml only
-test "$(ls -A /home/app/webapp | grep -v 'docker-compose.yml')" || ( \
+# this runs if in empty folder or with docker-compose.yml only
+test "$(ls -A /home/app/webapp | grep -v 'docker-compose.yml\|.bundle')" || ( \
   rails new /home/app/$APP_NAME -B -m=/home/app/template.rb -d=$RAILS_NEW_DB_ADAPTER $RAILS_NEW_ARGS && \
   (mv /home/app/$APP_NAME/{*,.*} /home/app/webapp/ 2> /dev/null && rmdir /home/app/$APP_NAME); \
   sed -i "s/  adapter:\(.*\)/  adapter: <%= ENV['DB_ADAPTER'] %>/" /home/app/webapp/config/database.yml; \
