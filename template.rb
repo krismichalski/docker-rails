@@ -1,5 +1,5 @@
 gem 'pry-byebug', '~> 3.4.0', group: :development
-gem 'lograge', '~> 0.3.6'
+gem 'lograge', '~> 0.4.1'
 gem 'logstash-event', '~> 1.2.02'
 
 environment 'config.logger = Logger.new(STDOUT)'

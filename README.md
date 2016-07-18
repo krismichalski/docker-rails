@@ -91,6 +91,10 @@ Next run these commands:
 docker-compose -p example up -d
 docker attach example_app_1
 ```
+To execute some rails command simply run:
+```bash
+docker-compose -p example exec app rails --help
+```
 To stop:
 ```bash
 docker-compose stop
@@ -105,7 +109,7 @@ docker-compose down -v # also removes volumes
 You need to add these gems to your Gemfile:
 ```ruby
 gem 'pry-byebug', '~> 3.4.0', group: :development
-gem 'lograge', '~> 0.3.6'
+gem 'lograge', '~> 0.4.1'
 gem 'logstash-event', '~> 1.2.02'
 ```
 Add these lines to config/application.rb:
