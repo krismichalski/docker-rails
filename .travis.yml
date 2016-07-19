@@ -14,12 +14,22 @@ env:
     - TAG=5
     - TAG=5-slim
     - TAG=5-alpine
+    - TAG=5-mini
     - TAG=4
     - TAG=4-slim
     - TAG=4-alpine
+    - TAG=4-mini
     - TAG=onbuild
     - TAG=onbuild-slim
     - TAG=onbuild-alpine
+    allow_failures:
+      - TAG=5-mini
+      - TAG=4-mini
+
+matrix:
+  allow_failures:
+    - env: TAG=5-mini
+    - env: TAG=4-mini
 
 # http://graysonkoonce.com/managing-docker-and-docker-compose-versions-on-travis-ci/
 before_install:
@@ -47,5 +57,5 @@ script:
   - docker logs example_app_1 | grep 'Bundle complete!'
   - if [[ "$TAG" == "onbuild"* ]]; then docker logs example_app_1 | grep "Using rails $(cat .rails-version)"; fi
   - ls db | grep '.sqlite3'
-  - docker-compose run app /bin/bash -c 'gem install pg'
-  - docker-compose run app /bin/bash -c 'gem install mysql'
+  - if [[ "$TAG" != *"mini" ]]; then docker-compose run app /bin/bash -c 'gem install pg'; fi
+  - if [[ "$TAG" != *"mini" ]]; then docker-compose run app /bin/bash -c 'gem install mysql'; fi
