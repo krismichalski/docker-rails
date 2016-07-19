@@ -42,5 +42,5 @@ script:
   - docker-compose -p example up
   - docker logs example_app_1 | grep 'Bundle complete!'
   - ls db | grep '.sqlite3'
-  - gem install pg
-  - gem install mysql
+  - docker-compose run app /bin/bash -c 'gem install pg'
+  - docker-compose run app /bin/bash -c 'gem install mysql'
