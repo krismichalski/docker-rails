@@ -1,12 +1,11 @@
 version: '2'
 services:
   app:
-    image: nooulaif/rails:latest
+    build: .
     environment:
       - APP_NAME=example
       - DB_ADAPTER=sqlite3
       - PREPARE_ONLY=true
       - LOCAL_USER_ID=${TRAVIS_USER_ID}
-      - RAILS_NEW_IGNORED_FILES=docker-compose.yml,onbuild
     volumes:
       - ./:/home/app/webapp

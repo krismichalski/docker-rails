@@ -1,0 +1,1 @@
+FROM nooulaif/rails:onbuild

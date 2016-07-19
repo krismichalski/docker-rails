@@ -17,6 +17,9 @@ env:
     - TAG=4
     - TAG=4-slim
     - TAG=4-alpine
+    - TAG=onbuild
+    - TAG=onbuild-slim
+    - TAG=onbuild-alpine
 
 # http://graysonkoonce.com/managing-docker-and-docker-compose-versions-on-travis-ci/
 before_install:
@@ -37,10 +40,12 @@ before_install:
 script:
   - docker build -f ${TAG}.dockerfile -t nooulaif/rails:${TAG} .
   - cd test
-  - sed -i "s/latest/${TAG}/g" docker-compose.yml
+  - if [[ "$TAG" == "onbuild"* ]]; then cd onbuild; sed -i "s/onbuild/${TAG}/g" Dockerfile; fi
+  - if [[ "$TAG" != "onbuild"* ]]; then sed -i "s/latest/${TAG}/g" docker-compose.yml; fi
   - export TRAVIS_USER_ID=$(id -u)
   - docker-compose -p example up
   - docker logs example_app_1 | grep 'Bundle complete!'
+  - if [[ "$TAG" == "onbuild"* ]]; then docker logs example_app_1 | grep "Using rails $(cat .rails-version)"; fi
   - ls db | grep '.sqlite3'
   - docker-compose run app /bin/bash -c 'gem install pg'
   - docker-compose run app /bin/bash -c 'gem install mysql'
