@@ -62,5 +62,5 @@ script:
   - docker logs example_app_1 | grep 'Bundle complete!'
   - docker logs example_app_1 | grep "Using rails $RAILS_VERSION"
   - ls db | grep '.sqlite3'
-  - if [[ "$TAG" != *"mini" ]]; then docker-compose run -e NO_INSTALL=true app /bin/bash -c 'gem install pg'; fi
-  - if [[ "$TAG" != *"mini" ]]; then docker-compose run -e NO_INSTALL=true app /bin/bash -c 'gem install mysql'; fi
+  - if [[ "$TAG" != *"mini" ]]; then docker-compose run app /bin/bash -c 'gem install pg'; fi
+  - if [[ "$TAG" != *"mini" ]]; then docker-compose run app /bin/bash -c 'gem install mysql'; fi

@@ -1,7 +1,6 @@
 #!/bin/bash
 
 USER_ID=${LOCAL_USER_ID:-1000}
-: ${NO_INSTALL:=false}
 export HOME=/home/app
 
 echo "Starting with UID : $USER_ID"
@@ -20,7 +19,11 @@ if [[ "$USER_ID" != "$(id -u app)" ]]; then
   fi
 fi
 
-if [[ "$NO_INSTALL" != "true" ]]; then
+# if we run default command then try to install rails
+# that way if we will need to run oneshot command with this image
+# e.g. docker run docker run --rm -it nooulaif/rails /bin/bash
+# rails instalation will be skipped
+if [[ "$@" == "/home/app/start.sh" ]]; then
   if [ ! -f /home/app/.rails_installed ]; then
     su -m app -c 'gem install -N -i "$GEM_HOME" rails -v "$RAILS_VERSION"'
     touch /home/app/.rails_installed
