@@ -7,7 +7,7 @@
 : ${RAILS_NEW_ARGS:=}
 : ${RAILS_NEW_IGNORED_FILES:=}
 : ${PREPARE_ONLY:=false}
-: ${DEFAULT_RAILS_NEW_IGNORED_FILES:=docker-compose.yml,.bundle,Dockerfile,.git,.svn,.hg,}
+: ${DEFAULT_RAILS_NEW_IGNORED_FILES:=,docker-compose.yml,.bundle,Dockerfile,.git,.svn,.hg}
 RAILS_NEW_IGNORED_FILES+=$DEFAULT_RAILS_NEW_IGNORED_FILES
 RAILS_NEW_IGNORED_FILES=${RAILS_NEW_IGNORED_FILES//,/\\\|}
 RAILS_NEW_DB_ADAPTER=${DB_ADAPTER/mysql2/mysql}
