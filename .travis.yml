@@ -11,21 +11,21 @@ env:
     - DOCKER_VERSION=1.11.2-0~trusty
     - DOCKER_COMPOSE_VERSION=1.7.1
   matrix:
-    - TAG=latest RAILS_VERSION=\~\>5.0.0
-    - TAG=latest RAILS_VERSION=\~\>4.2.0
-    - TAG=latest RAILS_VERSION=\~\>4.1.0
-    - TAG=latest RAILS_VERSION=\~\>4.0.0
-    - TAG=latest RAILS_VERSION=\~\>3.2.0
-    - TAG=slim RAILS_VERSION=\~\>5.0.0
-    - TAG=slim RAILS_VERSION=\~\>4.2.0
-    - TAG=slim RAILS_VERSION=\~\>4.1.0
-    - TAG=slim RAILS_VERSION=\~\>4.0.0
-    - TAG=slim RAILS_VERSION=\~\>3.2.0
-    - TAG=alpine RAILS_VERSION=\~\>5.0.0
-    - TAG=alpine RAILS_VERSION=\~\>4.2.0
-    - TAG=alpine RAILS_VERSION=\~\>4.1.0
-    - TAG=alpine RAILS_VERSION=\~\>4.0.0
-    - TAG=alpine RAILS_VERSION=\~\>3.2.0
+    - TAG=2.3 RAILS_VERSION=5.0
+    - TAG=2.3 RAILS_VERSION=4.2
+    - TAG=2.3 RAILS_VERSION=3.2
+    - TAG=2.3-slim RAILS_VERSION=5.0
+    - TAG=2.3-slim RAILS_VERSION=4.2
+    - TAG=2.3-slim RAILS_VERSION=3.2
+    - TAG=2.3-alpine RAILS_VERSION=5.0
+    - TAG=2.3-alpine RAILS_VERSION=4.2
+    - TAG=2.3-alpine RAILS_VERSION=3.2
+    - TAG=2.2 RAILS_VERSION=4.2
+    - TAG=2.2-slim RAILS_VERSION=4.2
+    - TAG=2.2-alpine RAILS_VERSION=4.2
+    - TAG=2.1 RAILS_VERSION=4.2
+    - TAG=2.1-slim RAILS_VERSION=4.2
+    - TAG=2.1-alpine RAILS_VERSION=4.2
     - TAG=mini RAILS_VERSION=5
     - TAG=mini RAILS_VERSION=4
 
@@ -57,6 +57,7 @@ script:
   - if [[ "$RAILS_VERSION" == "3"* ]]; then cd rails3; fi
   - sed -i "s/latest/${TAG}/g" docker-compose.yml
   - export TRAVIS_USER_ID=$(id -u)
+  - export TRAVIS_RAILS_VERSION=\~\>$RAILS_VERSION.0
   - docker-compose -p example up
   - docker logs example_app_1 | grep 'Bundle complete!'
   - docker logs example_app_1 | grep "Using rails $RAILS_VERSION"
