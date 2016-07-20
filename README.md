@@ -45,7 +45,7 @@ Default: `'~> 5.0'`
 You can specyfi what version of rails you want to install.
 
 Instalation will occur only once and only if command passed to docker run was
-not changed or it contains words rails, rake or bundle.
+not changed or it contains words `rails`, `rake` or `bundle`.
 
 Note: Has no effect in mini versions, because they have rails preinstalled.
 
