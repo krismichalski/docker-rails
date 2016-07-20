@@ -51,16 +51,15 @@ before_install:
   - docker-compose version
 
 script:
+  - if [[ "$TAG" == "mini" ]]; then export TAG=$RAILS_VERSION-$TAG; fi
   - docker build -f Dockerfile.${TAG} -t nooulaif/rails:${TAG} .
   - cd test
-  - if [[ "$RAILS_VERSION" == "3" ]]; then cd rails3; fi
+  - if [[ "$RAILS_VERSION" == "3"* ]]; then cd rails3; fi
   - sed -i "s/latest/${TAG}/g" docker-compose.yml
   - export TRAVIS_USER_ID=$(id -u)
   - docker-compose -p example up
   - docker logs example_app_1 | grep 'Bundle complete!'
   - docker logs example_app_1 | grep "Using rails $RAILS_VERSION"
   - ls db | grep '.sqlite3'
-  - if [[ "$TAG" != "mini" ]]; then docker-compose run -e NO_INSTALL=true app /bin/bash -c 'gem install pg'; fi
-  - if [[ "$TAG" != "mini" ]]; then docker-compose run -e NO_INSTALL=true app /bin/bash -c 'gem install mysql'; fi
-  - docker-compose -p example up -d && sleep 3
-  - curl -X GET http://localhost:3000/
+  - if [[ "$TAG" != *"mini" ]]; then docker-compose run -e NO_INSTALL=true app /bin/bash -c 'gem install pg'; fi
+  - if [[ "$TAG" != *"mini" ]]; then docker-compose run -e NO_INSTALL=true app /bin/bash -c 'gem install mysql'; fi

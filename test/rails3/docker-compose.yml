@@ -12,5 +12,3 @@ services:
     volumes:
       - ./:/home/app/webapp
       - ./template.rb:/home/app/template.rb
-    ports:
-      - 3000:3000
