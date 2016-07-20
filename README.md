@@ -3,7 +3,7 @@
 Ready to use [Docker](https://www.docker.com/) image for running [Ruby on Rails](http://rubyonrails.org/) applications.
 Based on [official Ruby images](https://hub.docker.com/_/ruby/).
 
-## Supported tags and respective `Dockerfile` links
+## Supported tags
 
 - [`2.3`, `2`, `latest`](https://github.com/nooulaif/docker-rails/blob/master/2.3.dockerfile)
 - [`2.3-slim`, `2-slim`](https://github.com/nooulaif/docker-rails/blob/master/2.3-slim.dockerfile)
@@ -14,6 +14,9 @@ Based on [official Ruby images](https://hub.docker.com/_/ruby/).
 - [`2.1`](https://github.com/nooulaif/docker-rails/blob/master/2.1.dockerfile)
 - [`2.1-slim`](https://github.com/nooulaif/docker-rails/blob/master/2.1-slim.dockerfile)
 - [`2.1-alpine`](https://github.com/nooulaif/docker-rails/blob/master/2.1-alpine.dockerfile)
+
+## Experimental tags
+
 - [`5-mini`](https://github.com/nooulaif/docker-rails/blob/master/5-mini.dockerfile)
 - [`4-mini`](https://github.com/nooulaif/docker-rails/blob/master/4-mini.dockerfile)
 
