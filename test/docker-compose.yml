@@ -7,6 +7,8 @@ services:
       - DB_ADAPTER=sqlite3
       - PREPARE_ONLY=true
       - LOCAL_USER_ID=${TRAVIS_USER_ID}
-      - RAILS_NEW_IGNORED_FILES=docker-compose.yml,onbuild
+      - RAILS_VERSION=${RAILS_VERSION}
     volumes:
       - ./:/home/app/webapp
+    ports:
+      - 3000:3000

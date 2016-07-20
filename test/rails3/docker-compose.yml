@@ -1,11 +1,16 @@
 version: '2'
 services:
   app:
-    build: .
+    image: nooulaif/rails:latest
     environment:
       - APP_NAME=example
       - DB_ADAPTER=sqlite3
       - PREPARE_ONLY=true
       - LOCAL_USER_ID=${TRAVIS_USER_ID}
+      - RAILS_VERSION=${RAILS_VERSION}
+      - RAILS_NEW_IGNORED_FILES=template.rb
     volumes:
       - ./:/home/app/webapp
+      - ./template.rb:/home/app/template.rb
+    ports:
+      - 3000:3000

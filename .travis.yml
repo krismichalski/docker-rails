@@ -11,25 +11,28 @@ env:
     - DOCKER_VERSION=1.11.2-0~trusty
     - DOCKER_COMPOSE_VERSION=1.7.1
   matrix:
-    - TAG=5
-    - TAG=5-slim
-    - TAG=5-alpine
-    - TAG=5-mini
-    - TAG=4
-    - TAG=4-slim
-    - TAG=4-alpine
-    - TAG=4-mini
-    - TAG=onbuild
-    - TAG=onbuild-slim
-    - TAG=onbuild-alpine
-    allow_failures:
-      - TAG=5-mini
-      - TAG=4-mini
+    - TAG=latest RAILS_VERSION=\~\>5.0.0
+    - TAG=latest RAILS_VERSION=\~\>4.2.0
+    - TAG=latest RAILS_VERSION=\~\>4.1.0
+    - TAG=latest RAILS_VERSION=\~\>4.0.0
+    - TAG=latest RAILS_VERSION=\~\>3.2.0
+    - TAG=slim RAILS_VERSION=\~\>5.0.0
+    - TAG=slim RAILS_VERSION=\~\>4.2.0
+    - TAG=slim RAILS_VERSION=\~\>4.1.0
+    - TAG=slim RAILS_VERSION=\~\>4.0.0
+    - TAG=slim RAILS_VERSION=\~\>3.2.0
+    - TAG=alpine RAILS_VERSION=\~\>5.0.0
+    - TAG=alpine RAILS_VERSION=\~\>4.2.0
+    - TAG=alpine RAILS_VERSION=\~\>4.1.0
+    - TAG=alpine RAILS_VERSION=\~\>4.0.0
+    - TAG=alpine RAILS_VERSION=\~\>3.2.0
+    - TAG=mini RAILS_VERSION=5
+    - TAG=mini RAILS_VERSION=4
 
 matrix:
   allow_failures:
-    - env: TAG=5-mini
-    - env: TAG=4-mini
+    - env: TAG=mini RAILS_VERSION=5
+    - env: TAG=mini RAILS_VERSION=4
 
 # http://graysonkoonce.com/managing-docker-and-docker-compose-versions-on-travis-ci/
 before_install:
@@ -48,14 +51,16 @@ before_install:
   - docker-compose version
 
 script:
-  - docker build -f ${TAG}.dockerfile -t nooulaif/rails:${TAG} .
+  - docker build -f Dockerfile.${TAG} -t nooulaif/rails:${TAG} .
   - cd test
-  - if [[ "$TAG" == "onbuild"* ]]; then cd onbuild; sed -i "s/onbuild/${TAG}/g" Dockerfile; fi
-  - if [[ "$TAG" != "onbuild"* ]]; then sed -i "s/latest/${TAG}/g" docker-compose.yml; fi
+  - if [[ "$RAILS_VERSION" == "3" ]]; then cd rails3; fi
+  - sed -i "s/latest/${TAG}/g" docker-compose.yml
   - export TRAVIS_USER_ID=$(id -u)
   - docker-compose -p example up
   - docker logs example_app_1 | grep 'Bundle complete!'
-  - if [[ "$TAG" == "onbuild"* ]]; then docker logs example_app_1 | grep "Using rails $(cat .rails-version)"; fi
+  - docker logs example_app_1 | grep "Using rails $RAILS_VERSION"
   - ls db | grep '.sqlite3'
-  - if [[ "$TAG" != *"mini" ]]; then docker-compose run app /bin/bash -c 'gem install pg'; fi
-  - if [[ "$TAG" != *"mini" ]]; then docker-compose run app /bin/bash -c 'gem install mysql'; fi
+  - if [[ "$TAG" != "mini" ]]; then docker-compose run -e NO_INSTALL=true app /bin/bash -c 'gem install pg'; fi
+  - if [[ "$TAG" != "mini" ]]; then docker-compose run -e NO_INSTALL=true app /bin/bash -c 'gem install mysql'; fi
+  - docker-compose -p example up -d && sleep 3
+  - curl -X GET http://localhost:3000/

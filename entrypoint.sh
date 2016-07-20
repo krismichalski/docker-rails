@@ -1,6 +1,7 @@
 #!/bin/bash
 
 USER_ID=${LOCAL_USER_ID:-1000}
+: ${NO_INSTALL:=false}
 export HOME=/home/app
 
 echo "Starting with UID : $USER_ID"
@@ -16,6 +17,13 @@ if [[ "$USER_ID" != "$(id -u app)" ]]; then
     groupmod -g $USER_ID app;
     chown -R $USER_ID:$USER_ID $HOME
     usermod -g $USER_ID app;
+  fi
+fi
+
+if [[ "$NO_INSTALL" != "true" ]]; then
+  if [ ! -f /home/app/.rails_installed ]; then
+    su -m app -c 'gem install -N -i "$GEM_HOME" rails -v "$RAILS_VERSION"'
+    touch /home/app/.rails_installed
   fi
 fi
 
