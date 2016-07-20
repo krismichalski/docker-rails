@@ -1,0 +1,46 @@
+version: '2'
+services:
+  app:
+    image: nooulaif/rails:latest
+    environment:
+      - APP_NAME=example
+      - DB_HOST=db # name of service below
+      - DB_ADAPTER=postgresql
+      # - DB_ADAPTER=mysql2
+      # - DB_ADAPTER=sqlite3
+      - DB_USER=postgres
+      # - DB_USER=root # for mysql
+      # - DB_PASS=password
+      # - RAILS_NEW_ARGS='--api'
+      # - LOCAL_USER_ID=9999
+    volumes:
+      - ./:/home/app/webapp
+      - bundle_data:/home/app/bundle
+    depends_on:
+      - db
+    ports:
+      - 3000:3000
+    # for pry
+    tty: true
+    stdin_open: true
+
+  # not needed when sqlite3
+  db:
+    image: postgres:9.5
+    # image: mariadb:10.1
+    # image: mysql:5.7
+    volumes:
+      - db_data:/var/lib/postgresql
+      # - db_data:/var/lib/mysql
+    # environment:
+      # - MYSQL_ROOT_PASSWORD=password
+      # or empty root password
+      # - MYSQL_ALLOW_EMPTY_PASSWORD=yes
+    logging:
+      driver: none
+
+volumes:
+  bundle_data:
+    driver: local
+  db_data:
+    driver: local

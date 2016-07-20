@@ -1,145 +1,129 @@
 # docker-rails [![Build Status](https://travis-ci.org/nooulaif/docker-rails.svg?branch=travis-ci)](https://travis-ci.org/nooulaif/docker-rails)
 
-Ready to use [Docker](https://www.docker.com/) image for running [Ruby on Rails](http://rubyonrails.org/) (5 & 4) applications.
+Ready to use [Docker](https://www.docker.com/) image for running [Ruby on Rails](http://rubyonrails.org/) applications.
 Based on [official Ruby images](https://hub.docker.com/_/ruby/).
 
 ## Supported tags and respective `Dockerfile` links
 
-- [`5`, `latest`](https://github.com/nooulaif/docker-rails/blob/master/5.dockerfile)
-- [`5-slim`](https://github.com/nooulaif/docker-rails/blob/master/5-slim.dockerfile)
-- [`5-alpine`](https://github.com/nooulaif/docker-rails/blob/master/5-alpine.dockerfile)
-- [`4`](https://github.com/nooulaif/docker-rails/blob/master/4.dockerfile)
-- [`4-slim`](https://github.com/nooulaif/docker-rails/blob/master/4-slim.dockerfile)
-- [`4-alpine`](https://github.com/nooulaif/docker-rails/blob/master/4-alpine.dockerfile)
+- ['2.3', '2', 'latest'](https://github.com/nooulaif/docker-rails/blob/master/Dockerfile.2.3)
+- ['2.3-slim', '2-slim'](https://github.com/nooulaif/docker-rails/blob/master/Dockerfile.2.3-slim)
+- ['2.3-alpine', '2-alpine'](https://github.com/nooulaif/docker-rails/blob/master/Dockerfile.2.3-alpine)
+- ['2.2'](https://github.com/nooulaif/docker-rails/blob/master/Dockerfile.2.2)
+- ['2.2-slim'](https://github.com/nooulaif/docker-rails/blob/master/Dockerfile.2.2-slim)
+- ['2.2-alpine'](https://github.com/nooulaif/docker-rails/blob/master/Dockerfile.2.2-alpine)
+- ['2.1'](https://github.com/nooulaif/docker-rails/blob/master/Dockerfile.2.1)
+- ['2.1-slim'](https://github.com/nooulaif/docker-rails/blob/master/Dockerfile.2.1-slim)
+- ['2.1-alpine'](https://github.com/nooulaif/docker-rails/blob/master/Dockerfile.2.1-alpine)
+- ['5-mini'](https://github.com/nooulaif/docker-rails/blob/master/Dockerfile.5-mini)
+- ['4-mini'](https://github.com/nooulaif/docker-rails/blob/master/Dockerfile.4-mini)
 
 ## Features
-- Includes [gosu](https://github.com/tianon/gosu) to better handle su and sudo commands
+- Uses [gosu](https://github.com/tianon/gosu) to better handle su and sudo commands
 - Automatically creates and prepares new rails app
-    * If in empty / with docker-compose.yml only folder
-    * With correct app name of choise (based on environment variable APP_NAME)
-    * Modyfies database.yml to use environment variables DB_ADAPTER, DB_HOST, DB_USER, DB_PASS
-    * Ability to pass any additional arguments with RAILS_NEW_ARGS environment variable
-- On every restart checks if bundle install is necessary and if so runs it
-- Runs rake db:migrate on every restart for quick development
-- Modyfies log output to stdout and formats it for [Logstash](https://www.elastic.co/products/logstash)
+- Runs bundle install & rake db:migrate on every restart for quick development
+- For production modyfies log output to stdout and formats it for [Logstash](https://www.elastic.co/products/logstash)
 - In development adds docker network as trusted for web console
 - Includes [pry](http://pryrepl.org/) for easier debugging
-- Creates user with UID and GUI 1000 so it matches defaults for first non-root user on Linux hosts
-    * Thanks to that there are no problems with permissions on shared volumes (workaround until [docker solves this](https://github.com/docker/docker/issues/2259))
-    * There is possibility to use different number by passing LOCAL_USER_ID
+- Solves problem with wrong permissions on shared volume by matching UIDs
 
 ## Quick start
 Execute this command in empty folder:
 ```bash
 docker run -it -v $(pwd):/home/app/webapp -p 3000:3000 nooulaif/rails:latest
 ```
-Although I do recommend method with docker-compose.yml below which gives you possibility to
-mount installed gems into shared volume for ever faster development.
 
-## Example with [docker-compose](https://github.com/docker/compose) and all options
-In new, empty folder add file docker-compose.yml with following content:
-```yaml
-version: '2'
-services:
-  app:
-    image: nooulaif/rails:latest
-    environment:
-      - APP_NAME=example
-      - DB_HOST=db # name of service below
-      - DB_ADAPTER=postgresql
-      # - DB_ADAPTER=mysql2
-      # - DB_ADAPTER=sqlite3
-      - DB_USER=postgres
-      # - DB_USER=root # for mysql
-      # - DB_PASS=password
-      # - RAILS_NEW_ARGS='--api'
-      # - LOCAL_USER_ID=9999
-    volumes:
-      - ./:/home/app/webapp
-      - bundle_data:/home/app/bundle
-    depends_on:
-      - db
-    ports:
-      - 3000:3000
-    # for pry
-    tty: true
-    stdin_open: true
+## Environment variables
 
-  # not needed when sqlite3
-  db:
-    image: postgres:9.5
-    # image: mariadb:10.1
-    # image: mysql:5.7
-    volumes:
-      - db_data:/var/lib/postgresql
-      # - db_data:/var/lib/mysql
-    # environment:
-      # - MYSQL_ROOT_PASSWORD=password
-      # or empty root password
-      # - MYSQL_ALLOW_EMPTY_PASSWORD=yes
-    logging:
-      driver: none
+When you start this image, you can adjust some of the behavior
+by passing one or more environment variables.
 
-volumes:
-  bundle_data:
-    driver: local
-  db_data:
-    driver: local
-```
-Next run these commands:
-```bash
-docker-compose -p example up -d
-docker attach example_app_1
-```
-To execute some rails command simply run:
-```bash
-docker-compose -p example exec app rails --help
-```
-To stop:
-```bash
-docker-compose stop
-```
-To completely remove:
-```
-docker-compose down
-docker-compose down -v # also removes volumes
-```
+### APP_NAME
 
-## Modify existing rails project to use with this image
-You need to add these gems to your Gemfile:
-```ruby
-gem 'pry-byebug', '~> 3.4.0', group: :development
-gem 'lograge', '~> 0.4.1'
-gem 'logstash-event', '~> 1.2.02'
-```
-Add these lines to config/application.rb:
-```ruby
-config.logger = Logger.new(STDOUT)
-config.lograge.enabled = true
-config.lograge.formatter = Lograge::Formatters::Logstash.new
-```
-And these to config/environments/development.rb:
-```ruby
-config.web_console.whitelisted_ips = "172.0.0.0/8" if defined?(WebConsole)
-```
-Lastly your config/database.yml must use environments variables like so:
-```yaml
-default: &default
-  adapter: <%= ENV['DB_ADAPTER'] %>
-  host: <%= ENV['DB_HOST'] %>
-  username: <%= ENV['DB_USER'] %>
-  password: <%= ENV['DB_PASS'] %>
-```
-And you need to set them appropriately.
+Default: `example`
 
-Also make sure all files in bin/ directory uses:
-```
-#!/usr/bin/env ruby
-```
-If you need to recreate database run:
-```bash
-docker-compose run --rm app /bin/bash -c 'bundle install && rake db:create'
-```
+By defauly rails creates app name based on folder name where rails new command
+was run. In case of this image it would be `module Webapp`. This setting lets
+you overwrite this.
+
+### RAILS_NEW_ARGS
+
+Default: `[empty string]`
+
+You can specify additional arguments to rails new command.
+E.g. `RAILS_NEW_ARGS="--api --skip-spring"`
+
+### DEFAULT_RAILS_NEW_IGNORED_FILES
+
+Default: `docker-compose.yml,.bundle,Dockerfile,.git,.svn,.hg,`
+
+To avoid problems with overwriting files this image runs rails new command only
+if certain set of files is present in mounted volume. If anything besides these
+files is present rails new command will not be triggered.
+
+### RAILS_NEW_IGNORED_FILES
+
+Default: `[empty string]`
+
+You can add additional files to whitelist when checking for rails new command
+to run. E.g. `RAILS_NEW_IGNORED_FILES=Dockerfile.production,compose-production.yml`
+
+### LOCAL_USER_ID
+
+Default: `1000`
+
+You can change UID of default user to match your host user UID.
+
+### PREPARE_ONLY
+
+Default: `false`
+
+You may wish to not run rails server after preparing app. To achieve this set
+this variable to true.
+
+### DB_ADAPTER
+
+Default: `sqlite3`
+
+Name of the database adapter to use with your app.
+
+Notice: it's not value passed to rails new command, but to database.yml file
+
+### DB_HOST
+
+Default: `[empty string]`
+
+Address to your database server.
+
+### DB_USER
+
+Default: `[empty string]`
+
+User of your database.
+
+### DB_PASS
+
+Default: `[empty string]`
+
+Password for your database user.
+
+## Image variants
+
+### Based on official docker ruby images
+Consult [official readme](https://hub.docker.com/_/ruby/) for diffrence between
+<version>, <version>-slim and <version>-alpine images.
+
+### Mini
+These images are more of an experiment to create smalled, usable image for rails.
+With the size about 150MB, these are ~4 times smaller than [official rails image](https://hub.docker.com/_/rails/)
+They are not officially supported, but I will update them from time to time to
+meet rails dependencies.
+
+## Tip for quick development
+Instad of installing every single gem from Gemfile each time you want to add new one,
+I recommend to create docker volume and mount it to /home/app/bundle.
+This way you can install only new gems.
+See [example docker-compose.yml](https://github.com/nooulaif/docker-rails/blob/master/example-compose.yml)
+for a way to achieve this.
 
 ## Supported Docker versions
 This image was tested with Docker version 1.11.2.
