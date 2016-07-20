@@ -19,7 +19,7 @@ RAILS_NEW_ARGS=${RAILS_NEW_ARGS#\'}
 # this runs if in empty folder or with docker-compose.yml only
 test "$(ls -A /home/app/webapp | grep -v $RAILS_NEW_IGNORED_FILES)" || ( \
   rails new /home/app/$APP_NAME -B -m=/home/app/template.rb -d=$RAILS_NEW_DB_ADAPTER $RAILS_NEW_ARGS && \
-  (mv /home/app/$APP_NAME/{*,.*} /home/app/webapp/ 2> /dev/null && rmdir /home/app/$APP_NAME); \
+  if [[ "$APP_NAME" != "webapp" ]]; then (mv /home/app/$APP_NAME/{*,.*} /home/app/webapp/ 2> /dev/null && rmdir /home/app/$APP_NAME); fi \
   sed -i "s/  adapter:\(.*\)/  adapter: <%= ENV['DB_ADAPTER'] %>/" /home/app/webapp/config/database.yml; \
   (sed -i "s/  password:\(.*\)/  password: <%= ENV['DB_PASS'] %>/" /home/app/webapp/config/database.yml && sed -i "s/  adapter\: <%\= ENV\['DB_ADAPTER'\] %>/  adapter: <%= ENV['DB_ADAPTER'] %>\n  password: <%= ENV['DB_PASS'] %>/" /home/app/webapp/config/database.yml); \
   (sed -i "s/  username:\(.*\)/  username: <%= ENV['DB_USER'] %>/" /home/app/webapp/config/database.yml && sed -i "s/  adapter\: <%\= ENV\['DB_ADAPTER'\] %>/  adapter: <%= ENV['DB_ADAPTER'] %>\n  username: <%= ENV['DB_USER'] %>/" /home/app/webapp/config/database.yml); \
