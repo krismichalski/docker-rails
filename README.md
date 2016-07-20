@@ -5,17 +5,17 @@ Based on [official Ruby images](https://hub.docker.com/_/ruby/).
 
 ## Supported tags and respective `Dockerfile` links
 
-- ['2.3', '2', 'latest'](https://github.com/nooulaif/docker-rails/blob/master/Dockerfile.2.3)
-- ['2.3-slim', '2-slim'](https://github.com/nooulaif/docker-rails/blob/master/Dockerfile.2.3-slim)
-- ['2.3-alpine', '2-alpine'](https://github.com/nooulaif/docker-rails/blob/master/Dockerfile.2.3-alpine)
-- ['2.2'](https://github.com/nooulaif/docker-rails/blob/master/Dockerfile.2.2)
-- ['2.2-slim'](https://github.com/nooulaif/docker-rails/blob/master/Dockerfile.2.2-slim)
-- ['2.2-alpine'](https://github.com/nooulaif/docker-rails/blob/master/Dockerfile.2.2-alpine)
-- ['2.1'](https://github.com/nooulaif/docker-rails/blob/master/Dockerfile.2.1)
-- ['2.1-slim'](https://github.com/nooulaif/docker-rails/blob/master/Dockerfile.2.1-slim)
-- ['2.1-alpine'](https://github.com/nooulaif/docker-rails/blob/master/Dockerfile.2.1-alpine)
-- ['5-mini'](https://github.com/nooulaif/docker-rails/blob/master/Dockerfile.5-mini)
-- ['4-mini'](https://github.com/nooulaif/docker-rails/blob/master/Dockerfile.4-mini)
+- [`2.3`, `2`, `latest`](https://github.com/nooulaif/docker-rails/blob/master/Dockerfile.2.3)
+- [`2.3-slim`, `2-slim`](https://github.com/nooulaif/docker-rails/blob/master/Dockerfile.2.3-slim)
+- [`2.3-alpine`, `2-alpine`](https://github.com/nooulaif/docker-rails/blob/master/Dockerfile.2.3-alpine)
+- [`2.2`](https://github.com/nooulaif/docker-rails/blob/master/Dockerfile.2.2)
+- [`2.2-slim`](https://github.com/nooulaif/docker-rails/blob/master/Dockerfile.2.2-slim)
+- [`2.2-alpine`](https://github.com/nooulaif/docker-rails/blob/master/Dockerfile.2.2-alpine)
+- [`2.1`](https://github.com/nooulaif/docker-rails/blob/master/Dockerfile.2.1)
+- [`2.1-slim`](https://github.com/nooulaif/docker-rails/blob/master/Dockerfile.2.1-slim)
+- [`2.1-alpine`](https://github.com/nooulaif/docker-rails/blob/master/Dockerfile.2.1-alpine)
+- [`5-mini`](https://github.com/nooulaif/docker-rails/blob/master/Dockerfile.5-mini)
+- [`4-mini`](https://github.com/nooulaif/docker-rails/blob/master/Dockerfile.4-mini)
 
 ## Features
 - Uses [gosu](https://github.com/tianon/gosu) to better handle su and sudo commands
@@ -54,7 +54,7 @@ E.g. `RAILS_NEW_ARGS="--api --skip-spring"`
 
 ### DEFAULT_RAILS_NEW_IGNORED_FILES
 
-Default: `docker-compose.yml,.bundle,Dockerfile,.git,.svn,.hg,`
+Default: `,docker-compose.yml,.bundle,Dockerfile,.git,.svn,.hg`
 
 To avoid problems with overwriting files this image runs rails new command only
 if certain set of files is present in mounted volume. If anything besides these
@@ -110,7 +110,7 @@ Password for your database user.
 
 ### Based on official docker ruby images
 Consult [official readme](https://hub.docker.com/_/ruby/) for diffrence between
-<version>, <version>-slim and <version>-alpine images.
+`<version>`, `<version>-slim` and `<version>-alpine` images.
 
 ### Mini
 These images are more of an experiment to create smalled, usable image for rails.
