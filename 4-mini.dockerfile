@@ -5,8 +5,8 @@ MAINTAINER contact@nooulaif.com
 ENV RUBY_MAJOR=2.3 \
     RUBY_VERSION=2.3.1 \
     RUBYGEMS_VERSION=2.6.4 \
-    BUNDLER_VERSION=1.12.5 \
-    RAILS_VERSION=4.2.7 \
+    BUNDLER_VERSION=1.12 \
+    RAILS_VERSION=4.2 \
     GEM_HOME=/home/app/bundle \
     BUNDLE_PATH=/home/app/bundle \
     BUNDLE_APP_CONFIG=/home/app/bundle \
@@ -43,17 +43,17 @@ RUN apk add --no-cache \
     libc-dev libffi-dev \
     sqlite-dev postgresql-dev mysql-dev \
     libxml2-dev libxslt-dev \
- && su -m app -c 'gem install -N -i "$GEM_HOME" bundler -v "$BUNDLER_VERSION"' \
- && su -m app -c 'gem install -N -i "$GEM_HOME" rails -v "$RAILS_VERSION"' \
- && su -m app -c 'gem install -N -i "$GEM_HOME" pg -v 0.18.4' \
- && su -m app -c 'gem install -N -i "$GEM_HOME" mysql2 -v 0.4.4' \
- && su -m app -c 'gem install -N -i "$GEM_HOME" sqlite3 -v 1.3.11' \
- && su -m app -c 'gem install -N -i "$GEM_HOME" nokogiri -v 1.6.8' \
- && su -m app -c 'gem install -N -i "$GEM_HOME" binding_of_caller -v 0.7.2' \
- && su -m app -c 'gem install -N -i "$GEM_HOME" byebug -v 9.0.5' \
- && su -m app -c 'gem install -N -i "$GEM_HOME" ffi -v 1.9.10' \
- && su -m app -c 'gem install -N -i "$GEM_HOME" debug_inspector -v 0.0.2' \
- && su -m app -c 'gem install -N -i "$GEM_HOME" bcrypt -v 3.1.11' \
+ && su -m app -c 'gem install -N -i "$GEM_HOME" bundler -v "~> $BUNDLER_VERSION.0"' \
+ && su -m app -c 'gem install -N -i "$GEM_HOME" rails -v "~> $RAILS_VERSION.0"' \
+ && su -m app -c 'gem install -N -i "$GEM_HOME" pg -v "~> 0.18.4"' \
+ && su -m app -c 'gem install -N -i "$GEM_HOME" mysql2 -v "~> 0.4.4"' \
+ && su -m app -c 'gem install -N -i "$GEM_HOME" sqlite3 -v "~> 1.3.11"' \
+ && su -m app -c 'gem install -N -i "$GEM_HOME" nokogiri -v "~> 1.6.8"' \
+ && su -m app -c 'gem install -N -i "$GEM_HOME" binding_of_caller -v "~> 0.7.2"' \
+ && su -m app -c 'gem install -N -i "$GEM_HOME" byebug -v "~> 9.0.5"' \
+ && su -m app -c 'gem install -N -i "$GEM_HOME" ffi -v "~> 1.9.10"' \
+ && su -m app -c 'gem install -N -i "$GEM_HOME" debug_inspector -v "~> 0.0.2"' \
+ && su -m app -c 'gem install -N -i "$GEM_HOME" bcrypt -v "~> 3.1.11"' \
  && cd /usr/lib/ \
  && cp libldap_r-2.4.* liblber-2.4.* libsasl2.* libpq.* libmysqlclient.* libsqlite3.* /tmp/ \
  && apk del build-dependencies \
