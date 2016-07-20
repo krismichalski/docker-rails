@@ -27,7 +27,6 @@ test "$(ls -A /home/app/webapp | grep -v $RAILS_NEW_IGNORED_FILES)" || ( \
   (bundle check || (echo 'running bundle install...' && bundle install)) && rake db:create
 )
 
-# do not execute on travis tests
 if [[ "$PREPARE_ONLY" != "true" ]]; then
   # remove pids because sometimes they cause problems
   rm -rf tmp/pids

@@ -21,7 +21,7 @@ fi
 
 # if we run default command then try to install rails
 # that way if we will need to run oneshot command with this image
-# e.g. docker run docker run --rm -it nooulaif/rails /bin/bash
+# e.g. docker run --rm -it nooulaif/rails /bin/bash
 # rails instalation will be skipped
 if [[ "$@" == "/home/app/start.sh" ]]; then
   if [ ! -f /home/app/.rails_installed ]; then
