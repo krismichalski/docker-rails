@@ -113,8 +113,8 @@ Consult [official readme](https://hub.docker.com/_/ruby/) for diffrence between
 `<version>`, `<version>-slim` and `<version>-alpine` images.
 
 ### Mini
-These images are more of an experiment to create smalled, usable image for rails.
-With the size about 150MB, these are ~4 times smaller than [official rails image](https://hub.docker.com/_/rails/)
+These images are more of an experiment to create smallest, usable image for rails.
+With the size about 150MB, these are ~4 times thinner than [official rails images](https://hub.docker.com/_/rails/)
 They are not officially supported, but I will update them from time to time to
 meet rails dependencies.
 
