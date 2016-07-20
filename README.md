@@ -5,17 +5,17 @@ Based on [official Ruby images](https://hub.docker.com/_/ruby/).
 
 ## Supported tags and respective `Dockerfile` links
 
-- [`2.3`, `2`, `latest`](https://github.com/nooulaif/docker-rails/blob/master/Dockerfile.2.3)
-- [`2.3-slim`, `2-slim`](https://github.com/nooulaif/docker-rails/blob/master/Dockerfile.2.3-slim)
-- [`2.3-alpine`, `2-alpine`](https://github.com/nooulaif/docker-rails/blob/master/Dockerfile.2.3-alpine)
-- [`2.2`](https://github.com/nooulaif/docker-rails/blob/master/Dockerfile.2.2)
-- [`2.2-slim`](https://github.com/nooulaif/docker-rails/blob/master/Dockerfile.2.2-slim)
-- [`2.2-alpine`](https://github.com/nooulaif/docker-rails/blob/master/Dockerfile.2.2-alpine)
-- [`2.1`](https://github.com/nooulaif/docker-rails/blob/master/Dockerfile.2.1)
-- [`2.1-slim`](https://github.com/nooulaif/docker-rails/blob/master/Dockerfile.2.1-slim)
-- [`2.1-alpine`](https://github.com/nooulaif/docker-rails/blob/master/Dockerfile.2.1-alpine)
-- [`5-mini`](https://github.com/nooulaif/docker-rails/blob/master/Dockerfile.5-mini)
-- [`4-mini`](https://github.com/nooulaif/docker-rails/blob/master/Dockerfile.4-mini)
+- [`2.3`, `2`, `latest`](https://github.com/nooulaif/docker-rails/blob/master/2.3.dockerfile)
+- [`2.3-slim`, `2-slim`](https://github.com/nooulaif/docker-rails/blob/master/2.3-slim.dockerfile)
+- [`2.3-alpine`, `2-alpine`](https://github.com/nooulaif/docker-rails/blob/master/2.3-alpine.dockerfile)
+- [`2.2`](https://github.com/nooulaif/docker-rails/blob/master/2.2.dockerfile)
+- [`2.2-slim`](https://github.com/nooulaif/docker-rails/blob/master/2.2-slim.dockerfile)
+- [`2.2-alpine`](https://github.com/nooulaif/docker-rails/blob/master/2.2-alpine.dockerfile)
+- [`2.1`](https://github.com/nooulaif/docker-rails/blob/master/2.1.dockerfile)
+- [`2.1-slim`](https://github.com/nooulaif/docker-rails/blob/master/2.1-slim.dockerfile)
+- [`2.1-alpine`](https://github.com/nooulaif/docker-rails/blob/master/2.1-alpine.dockerfile)
+- [`5-mini`](https://github.com/nooulaif/docker-rails/blob/master/5-mini.dockerfile)
+- [`4-mini`](https://github.com/nooulaif/docker-rails/blob/master/4-mini.dockerfile)
 
 ## Features
 - Does not comes with any preinstalled version of rails, so you can choose by yourself
