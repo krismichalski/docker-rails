@@ -1,5 +1,11 @@
 #!/bin/bash
 
+: ${RAILS_VERSION:='~> 5.0'}
+RAILS_VERSION=${RAILS_VERSION%\"}
+RAILS_VERSION=${RAILS_VERSION%\'}
+RAILS_VERSION=${RAILS_VERSION#\"}
+RAILS_VERSION=${RAILS_VERSION#\'}
+
 USER_ID=${LOCAL_USER_ID:-1000}
 export HOME=/home/app
 
@@ -23,7 +29,7 @@ fi
 # that way if we will need to run oneshot command with this image
 # e.g. docker run --rm -it nooulaif/rails /bin/bash
 # rails instalation will be skipped
-if [[ "$@" == "/home/app/start.sh" ]]; then
+if [[ ( "$@" == "/home/app/start.sh" ) || ( "$@" == *"rails"* ) || ( "$@" == *"rake"* ) || ( "$@" == *"bundle"* ) ]]; then
   if [ ! -f /home/app/.rails_installed ]; then
     su -m app -c 'gem install -N -i "$GEM_HOME" rails -v "$RAILS_VERSION"'
     touch /home/app/.rails_installed

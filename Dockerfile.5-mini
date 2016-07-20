@@ -33,6 +33,7 @@ RUN apk add --no-cache \
   } >> /home/app/.gemrc \
  && echo 'alias irb=pry' >> /home/app/.bashrc \
  && echo 'alias gosu=su-exec' >> /home/app/.bashrc \
+ && touch /home/app/.rails_installed \
  && mkdir -p /usr/local/bin/ \
  && ln -s $(which su-exec) /usr/local/bin/gosu \
  && gem update -N --system $RUBYGEMS_VERSION \

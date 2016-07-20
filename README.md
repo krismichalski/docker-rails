@@ -18,6 +18,7 @@ Based on [official Ruby images](https://hub.docker.com/_/ruby/).
 - [`4-mini`](https://github.com/nooulaif/docker-rails/blob/master/Dockerfile.4-mini)
 
 ## Features
+- Does not comes with any preinstalled version of rails, so you can choose by yourself
 - Uses [gosu](https://github.com/tianon/gosu) to better handle su and sudo commands
 - Automatically creates and prepares new rails app
 - Runs bundle install & rake db:migrate on every restart for quick development
@@ -36,6 +37,17 @@ docker run -it -v $(pwd):/home/app/webapp -p 3000:3000 nooulaif/rails:latest
 
 When you start this image, you can adjust some of the behavior
 by passing one or more environment variables.
+
+### RAILS_VERSION
+
+Default: `'~> 5.0'`
+
+You can specyfi what version of rails you want to install.
+
+Instalation will occur only once and only if command passed to docker run was
+not changed or it contains words rails, rake or bundle.
+
+Note: Has no effect in mini versions, because they have rails preinstalled.
 
 ### APP_NAME
 
