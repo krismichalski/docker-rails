@@ -29,7 +29,7 @@ fi
 # that way if we will need to run oneshot command with this image
 # e.g. docker run --rm -it nooulaif/rails /bin/bash
 # rails instalation will be skipped
-if [[ ( "$@" == "/home/app/start.sh" ) || ( "$@" == *"rails"* ) || ( "$@" == *"rake"* ) || ( "$@" == *"bundle"* ) ]]; then
+if [[ ( "$@" == "/home/app/start.sh" ) || ( "$@" == "rails"* ) || ( "$@" == "rake"* ) || ( "$@" == "bundle"* ) ]]; then
   if [ ! -f /home/app/.rails_installed ]; then
     su -m app -c 'gem install -N -i "$GEM_HOME" rails -v "$RAILS_VERSION"'
     touch /home/app/.rails_installed
