@@ -8,6 +8,11 @@
 : ${RAILS_NEW_IGNORED_FILES:=}
 : ${PREPARE_ONLY:=false}
 : ${DEFAULT_RAILS_NEW_IGNORED_FILES:=,docker-compose.yml,.bundle,Dockerfile,.git,.svn,.hg}
+
+if [[ "$RAILS_NEW_IGNORED_FILES" == "" ]]; then
+  DEFAULT_RAILS_NEW_IGNORED_FILES=${DEFAULT_RAILS_NEW_IGNORED_FILES/,/};
+fi
+
 RAILS_NEW_IGNORED_FILES+=$DEFAULT_RAILS_NEW_IGNORED_FILES
 RAILS_NEW_IGNORED_FILES=${RAILS_NEW_IGNORED_FILES//,/\\\|}
 RAILS_NEW_DB_ADAPTER=${DB_ADAPTER/mysql2/mysql}
@@ -15,6 +20,8 @@ RAILS_NEW_ARGS=${RAILS_NEW_ARGS%\"}
 RAILS_NEW_ARGS=${RAILS_NEW_ARGS%\'}
 RAILS_NEW_ARGS=${RAILS_NEW_ARGS#\"}
 RAILS_NEW_ARGS=${RAILS_NEW_ARGS#\'}
+
+
 
 # this runs if in empty folder or with docker-compose.yml only
 test "$(ls -A /home/app/webapp | grep -v $RAILS_NEW_IGNORED_FILES)" || ( \
