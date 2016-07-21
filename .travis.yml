@@ -51,7 +51,6 @@ script:
   - if [[ "$TAG" == "mini" ]]; then export TAG=$RAILS_VERSION-$TAG; fi
   - docker build -f ${TAG}.dockerfile -t nooulaif/rails:${TAG} .
   - cd test
-  - if [[ "$RAILS_VERSION" == "3"* ]]; then cd rails3; fi
   - sed -i "s/latest/${TAG}/g" docker-compose.yml
   - export TRAVIS_USER_ID=$(id -u)
   - export TRAVIS_RAILS_VERSION=\~\>$RAILS_VERSION.0

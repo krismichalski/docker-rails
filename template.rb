@@ -1,5 +1,11 @@
 gem 'pry-byebug', '~> 3.4.0', group: :development
-gem 'lograge', '~> 0.4.1'
+
+if Rails::VERSION::STRING.split('.')[0].to_i > 3
+  gem 'lograge', '~> 0.4.1'
+else
+  gem 'lograge', '~> 0.3.6'
+end
+
 gem 'logstash-event', '~> 1.2.02'
 
 environment 'config.logger = Logger.new(STDOUT)'
