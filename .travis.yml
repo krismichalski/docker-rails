@@ -9,22 +9,22 @@ env:
     - DOCKER_COMPOSE_VERSION=1.7.1
     - secure: wq+cGQrHVkdKGAUpdmjNRNuZLCgjSJq0V/sxOPaw2e3sVG3SjdYf6dbd+2QU2G4sb8a78WGRJzj977z0pEsJqcitGD/OkWWXwNzN021jI69eCJqACJee7yc45LtEWsNRU5GZxNC69HO2jeo54QuUJUVfEfHKOKNDuLNkXhpLXSy/NHjhFY4ChudYdopkWMonjfLv8euDAFBl0wLWCr7zLu4RpvLKx1poUpcmYoZIhwZIlELDNAutHTB/ecIhnu9LIvMCYHzh9lLZcS98k8+D5qO2EgSb3KKURQR5f/HZ8SHl5HA/H7C2V6rvVVi1MvzH43UkR1yu1y3niQPXwxsMc3jixr+0gNvCVbaRBvp6da/B2xkt8by+0XBsONK8GiFlvHUbQqboMjtY95pvS8GxF/EzJi5RhikrpIMEFUEVhPhjcbTU+zM20NfYdIaTavAghgPKVgkUBhM8xfvSp60Lt3QSpbc6vVznt2bE5JTqDY4PAASM660wWPiTPlnzQfyZbjQSDL1ggZ7VasWA5QtY84V3wps5pLLBMyN6aD7Gz+KJ3Y0MyC8Q6SFMhz/Aw6y5hIeMbe+4D8IM5Xz90JSAdYJmkSKmfFURh+jiqOHSSiaB9Zc0cBY+qPss5yUszTdCl+I9LpcUPu/b4Se2GYWBMYOKQwUG5SyfUXPneO06xzI=
   matrix:
-    # - TAG=mini RAILS_VERSION=4
-    # - TAG=mini RAILS_VERSION=5
+    - TAG=mini RAILS_VERSION=4
+    - TAG=mini RAILS_VERSION=5
     - TAG=2.1-alpine RAILS_VERSION=4.2
-    # - TAG=2.1-slim RAILS_VERSION=4.2
-    # - TAG=2.1 RAILS_VERSION=4.2
-    # - TAG=2.2-alpine RAILS_VERSION=4.2
-    # - TAG=2.2-slim RAILS_VERSION=4.2
-    # - TAG=2.2 RAILS_VERSION=4.2
-    # - TAG=2.3-alpine RAILS_VERSION=3.2
-    # - TAG=2.3-alpine RAILS_VERSION=4.2
-    # - TAG=2.3-alpine RAILS_VERSION=5.0
-    # - TAG=2.3-slim RAILS_VERSION=3.2
-    # - TAG=2.3-slim RAILS_VERSION=4.2
-    # - TAG=2.3-slim RAILS_VERSION=5.0
-    # - TAG=2.3 RAILS_VERSION=3.2
-    # - TAG=2.3 RAILS_VERSION=4.2
+    - TAG=2.1-slim RAILS_VERSION=4.2
+    - TAG=2.1 RAILS_VERSION=4.2
+    - TAG=2.2-alpine RAILS_VERSION=4.2
+    - TAG=2.2-slim RAILS_VERSION=4.2
+    - TAG=2.2 RAILS_VERSION=4.2
+    - TAG=2.3-alpine RAILS_VERSION=3.2
+    - TAG=2.3-alpine RAILS_VERSION=4.2
+    - TAG=2.3-alpine RAILS_VERSION=5.0
+    - TAG=2.3-slim RAILS_VERSION=3.2
+    - TAG=2.3-slim RAILS_VERSION=4.2
+    - TAG=2.3-slim RAILS_VERSION=5.0
+    - TAG=2.3 RAILS_VERSION=3.2
+    - TAG=2.3 RAILS_VERSION=4.2
     - TAG=2.3 RAILS_VERSION=5.0
 
 matrix:
@@ -62,5 +62,3 @@ script:
   - ls db | grep '.sqlite3'
   - if [[ "$TAG" != *"mini" ]]; then docker-compose run app gem install pg; fi
   - if [[ "$TAG" != *"mini" ]]; then docker-compose run app gem install mysql; fi
-
-after_success: bash ${TRAVIS_BUILD_DIR}/trigger_dockerhub.sh
