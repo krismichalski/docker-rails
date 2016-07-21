@@ -47,8 +47,8 @@ Default: `'~> 5.0'`
 
 You can specyfi what version of rails you want to install.
 
-Instalation will occur only once and only if command passed to docker run was
-not changed or it starts with `rails`, `rake` or `bundle`.
+Instalation will occur once and only if command passed to docker run wasn't
+changed or it starts with `rails`, `rake` or `bundle`.
 
 Note: Has no effect in mini versions, because they have rails preinstalled.
 
@@ -56,16 +56,17 @@ Note: Has no effect in mini versions, because they have rails preinstalled.
 
 Default: `example`
 
-By defauly rails creates app name based on folder name where rails new command
-was run. In case of this image it would be `module Webapp`. This setting lets
-you overwrite this.
+By defauly rails creates app name based on folder name where rails new command was run.
+
+In case of this image it would be `module Webapp`. This setting lets you overwrite this.
 
 ### RAILS_NEW_ARGS
 
 Default: `[empty string]`
 
 You can specify additional arguments to rails new command.
-E.g. `RAILS_NEW_ARGS="--api --skip-spring"`
+
+For example `RAILS_NEW_ARGS="--api --skip-spring"`
 
 ### DEFAULT_RAILS_NEW_IGNORED_FILES
 
@@ -79,8 +80,9 @@ files is present rails new command will not be triggered.
 
 Default: `[empty string]`
 
-You can add additional files to whitelist when checking for rails new command
-to run. E.g. `RAILS_NEW_IGNORED_FILES=Dockerfile.production,compose-production.yml`
+You can add additional files to whitelist when checking for rails new command to run.
+
+For example `RAILS_NEW_IGNORED_FILES=Dockerfile.production,compose-production.yml`
 
 ### LOCAL_USER_ID
 
@@ -129,14 +131,14 @@ Consult [official readme](https://hub.docker.com/_/ruby/) for diffrence between
 
 ### Mini
 These images are more of an experiment to create smallest, usable image for rails.
+
 With the size about 150MB, these are ~4 times thinner than [official rails images](https://hub.docker.com/_/rails/)
-They are not officially supported, but I will update them from time to time to
-meet rails dependencies.
 
 ## Tip for quick development
 Instad of installing every single gem from Gemfile each time you want to add new one,
 I recommend to create docker volume and mount it to /home/app/bundle.
-This way you can install only new gems.
+Thanks to that you can install only new gems.
+
 See [example docker-compose.yml](https://github.com/nooulaif/docker-rails/blob/master/example-compose.yml)
 for a way to achieve this.
 
