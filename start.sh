@@ -1,5 +1,5 @@
 #!/bin/bash
-: ${APP_NAME:=example}
+: ${APP_NAME:=webapp}
 : ${DB_HOST:=}
 : ${DB_ADAPTER:=sqlite3}
 : ${DB_USER:=}

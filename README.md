@@ -54,7 +54,7 @@ Note: Has no effect in mini versions, because they have rails preinstalled.
 
 ### APP_NAME
 
-Default: `example`
+Default: `webapp`
 
 By defauly rails creates app name based on folder name where rails new command was run.
 
