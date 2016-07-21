@@ -63,4 +63,4 @@ script:
   - if [[ "$TAG" != *"mini" ]]; then docker-compose run app /bin/bash -c 'gem install pg'; fi
   - if [[ "$TAG" != *"mini" ]]; then docker-compose run app /bin/bash -c 'gem install mysql'; fi
 
-after_success: ./trigger_dockerhub.sh
+after_success: ./${TRAVIS_BUILD_DIR}/trigger_dockerhub.sh
