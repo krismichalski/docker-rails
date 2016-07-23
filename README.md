@@ -142,7 +142,7 @@ Thanks to that you can install only new gems.
 See [example docker-compose.yml](https://github.com/nooulaif/docker-rails/blob/master/example-compose.yml)
 for a way to achieve this.
 
-Also to avoid installing rails over and over again it's probably a good idea to place this Dockerfile in root of your app
+Also to avoid installing rails over and over again it's probably a good idea to place below Dockerfile in root of your app
 and use image build with it.
 
 ```Dockerfile
