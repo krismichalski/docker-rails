@@ -30,7 +30,7 @@ fi
 # e.g. docker run --rm -it nooulaif/rails /bin/bash
 # rails instalation will be skipped
 if [[ ( "$@" == "/home/app/start.sh" ) || ( "$@" == "rails"* ) || ( "$@" == "rake"* ) || ( "$@" == "bundle"* ) ]]; then
-  exec /home/app/install_rails.sh
+  source /home/app/install_rails.sh
 fi
 
 exec /usr/local/bin/gosu app "$@"
