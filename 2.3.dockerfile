@@ -39,7 +39,7 @@ RUN apt-get update \
  && rm -rf '/var/lib/apt/lists/*' '/tmp/*' '/var/tmp/*'
 
 WORKDIR $APP
-COPY start.sh template.rb entrypoint.sh /home/app/
+COPY start.sh template.rb entrypoint.sh install_rails.sh /home/app/
 
 ENTRYPOINT ["/home/app/entrypoint.sh"]
 CMD ["/home/app/start.sh"]

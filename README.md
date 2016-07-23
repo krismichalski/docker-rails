@@ -28,7 +28,7 @@ Based on [official Ruby images](https://hub.docker.com/_/ruby/).
 - For production modyfies log output to stdout and formats it for [Logstash](https://www.elastic.co/products/logstash)
 - In development adds docker network as trusted for web console
 - Includes [pry](http://pryrepl.org/) for easier debugging
-- Solves problem with wrong permissions on shared volume by matching UIDs
+- Solves problem with wrong permissions on shared volumes by matching UIDs
 
 ## Quick start
 Execute this command in empty folder:
@@ -132,15 +132,24 @@ Consult [official readme](https://hub.docker.com/_/ruby/) for diffrence between
 ### Mini
 These images are more of an experiment to create smallest, usable image for rails.
 
-With the size about 150MB, these are ~4 times thinner than [official rails images](https://hub.docker.com/_/rails/)
+With the size about 150MB, these are ~4 times thinner than [official rails images](https://hub.docker.com/_/rails/).
 
-## Tip for quick development
-Instad of installing every single gem from Gemfile each time you want to add new one,
+## Tips for quick development
+Instead of installing every single gem from Gemfile each time you want to add new one,
 I recommend to create docker volume and mount it to /home/app/bundle.
 Thanks to that you can install only new gems.
 
 See [example docker-compose.yml](https://github.com/nooulaif/docker-rails/blob/master/example-compose.yml)
 for a way to achieve this.
+
+Also to avoid installing rails over and over again it's probably a good idea to place this Dockerfile in root of your app
+and use image build with it.
+
+```Dockerfile
+FROM nooulaif/rails:latest
+ENV RAILS_VERSION=5.0.0
+RUN /home/app/install_rails.sh
+```
 
 ## Supported Docker versions
 This image was tested with Docker version 1.11.2.
