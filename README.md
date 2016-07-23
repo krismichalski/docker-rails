@@ -56,7 +56,7 @@ Note: Has no effect in mini versions, because they have rails preinstalled.
 
 Default: `webapp`
 
-By defauly rails creates app name based on folder name where rails new command was run.
+By default rails creates app name based on folder name where rails new command was run.
 
 In case of this image it would be `module Webapp`. This setting lets you overwrite this.
 
@@ -103,7 +103,7 @@ Default: `sqlite3`
 
 Name of the database adapter to use with your app.
 
-Notice: it's not value passed to rails new command, but to database.yml file
+Notice: it's not value passed to rails new command, but to database.yml file.
 
 ### DB_HOST
 
