@@ -56,7 +56,7 @@ Note: Has no effect in mini versions, because they have rails preinstalled.
 
 Default: `webapp`
 
-By default rails creates app name based on folder name where rails new command was run.
+By default rails creates app name, which determines e.g. databases names, based on folder name where rails new command was run.
 
 In case of this image it would be `module Webapp`. This setting lets you overwrite this.
 
