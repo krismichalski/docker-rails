@@ -2,7 +2,7 @@
 
 RUBY_MAJOR=$(ruby -v | awk '{split($2,a,"."); print a[2]}')
 
-if [[ $RUBY_MAJOR -le 2 ]]; then
+if [[ $RUBY_MAJOR == 2 ]]; then
   : ${RAILS_VERSION:='~> 4.2'}
 elif [[ $RUBY_MAJOR == 3 ]]; then
   : ${RAILS_VERSION:='~> 5.0'}

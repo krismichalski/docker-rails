@@ -19,9 +19,6 @@ env:
     - TAG=2.2 RAILS_VERSION=4.2
     - TAG=2.2-slim RAILS_VERSION=4.2
     - TAG=2.2-alpine RAILS_VERSION=4.2
-    - TAG=2.1 RAILS_VERSION=4.2
-    - TAG=2.1-slim RAILS_VERSION=4.2
-    - TAG=2.1-alpine RAILS_VERSION=4.2
     - TAG=mini RAILS_VERSION=5
     - TAG=mini RAILS_VERSION=4
 
