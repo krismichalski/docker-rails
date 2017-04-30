@@ -19,8 +19,6 @@ env:
     - TAG=2.2 RAILS_VERSION=4.2
     - TAG=2.2-slim RAILS_VERSION=4.2
     - TAG=2.2-alpine RAILS_VERSION=4.2
-    - TAG=mini RAILS_VERSION=5
-    - TAG=mini RAILS_VERSION=4
 
 # http://graysonkoonce.com/managing-docker-and-docker-compose-versions-on-travis-ci/
 before_install:
