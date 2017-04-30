@@ -22,11 +22,6 @@ env:
     - TAG=mini RAILS_VERSION=5
     - TAG=mini RAILS_VERSION=4
 
-matrix:
-  allow_failures:
-    - env: TAG=mini RAILS_VERSION=5
-    - env: TAG=mini RAILS_VERSION=4
-
 # http://graysonkoonce.com/managing-docker-and-docker-compose-versions-on-travis-ci/
 before_install:
   # list docker-engine versions
@@ -44,7 +39,6 @@ before_install:
   - docker-compose version
 
 script:
-  - if [[ "$TAG" == "mini" ]]; then export TAG=$RAILS_VERSION-$TAG; fi
   - docker build -f ${TAG}.dockerfile -t nooulaif/rails:${TAG} .
   - cd test
   - sed -i "s/latest/${TAG}/g" docker-compose.yml
@@ -54,5 +48,5 @@ script:
   - docker logs example_app_1 | grep 'Bundle complete!'
   - docker logs example_app_1 | grep "Using rails $RAILS_VERSION"
   - ls db | grep '.sqlite3'
-  - if [[ "$TAG" != *"mini" ]]; then docker-compose run app gem install pg; fi
-  - if [[ "$TAG" != *"mini" ]]; then docker-compose run app gem install mysql2; fi
+  - docker-compose run app gem install pg
+  - docker-compose run app gem install mysql2
