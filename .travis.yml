@@ -58,4 +58,4 @@ script:
   - docker logs example_app_1 | grep "Using rails $RAILS_VERSION"
   - ls db | grep '.sqlite3'
   - if [[ "$TAG" != *"mini" ]]; then docker-compose run app gem install pg; fi
-  - if [[ "$TAG" != *"mini" ]]; then docker-compose run app gem install mysql; fi
+  - if [[ "$TAG" != *"mini" ]]; then docker-compose run app gem install mysql2; fi
