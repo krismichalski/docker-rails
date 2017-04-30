@@ -15,7 +15,7 @@ Based on [official Ruby images](https://hub.docker.com/_/ruby/).
 - [`2.2-slim`](https://github.com/nooulaif/docker-rails/blob/master/2.2-slim.dockerfile)
 - [`2.2-alpine`](https://github.com/nooulaif/docker-rails/blob/master/2.2-alpine.dockerfile)
 
-## Experimental tags (no longer maintenance)
+## Experimental tags (no longer supported)
 
 - [`5-mini`](https://github.com/nooulaif/docker-rails/blob/master/5-mini.dockerfile)
 - [`4-mini`](https://github.com/nooulaif/docker-rails/blob/master/4-mini.dockerfile)
@@ -135,7 +135,7 @@ Password for your database user.
 Consult [official readme](https://hub.docker.com/_/ruby/) for difference between
 `<version>`, `<version>-slim` and `<version>-alpine` images.
 
-### Mini (no longer maintenance)
+### Mini (no longer supported)
 These images are more of an experiment to create smallest, usable image for rails.
 
 With the size about 150MB, these are ~4 times thinner than [official rails images](https://hub.docker.com/_/rails/).
