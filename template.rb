@@ -1,10 +1,5 @@
 gem 'pry-byebug', '~> 3.4.0', group: :development
-
-if Rails::VERSION::STRING.split('.')[0].to_i > 3
-  gem 'lograge', '~> 0.4.1'
-else
-  gem 'lograge', '~> 0.3.6'
-end
+gem 'lograge', '~> 0.5.0'
 
 gem 'logstash-event', '~> 1.2.02'
 
