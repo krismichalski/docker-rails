@@ -2,7 +2,7 @@ FROM ruby:2.3
 MAINTAINER contact@nooulaif.com
 
 # Set all environment variables at once
-ENV GOSU_VERSION=1.9 \
+ENV GOSU_VERSION=1.10 \
     GEM_HOME=/home/app/bundle \
     BUNDLE_PATH=/home/app/bundle \
     BUNDLE_APP_CONFIG=/home/app/bundle \
