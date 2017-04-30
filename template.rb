@@ -1,4 +1,4 @@
-gem 'pry-byebug', '~> 3.4.0', group: :development
+gem 'pry-byebug', '~> 3.4.2', group: :development
 gem 'lograge', '~> 0.5.0'
 
 gem 'logstash-event', '~> 1.2.02'
