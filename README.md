@@ -6,11 +6,11 @@ Based on [official Ruby images](https://hub.docker.com/_/ruby/).
 ## Supported tags
 
 - [`2.4`, `2`, `latest`](https://github.com/nooulaif/docker-rails/blob/master/2.4.dockerfile)
-- [`2.4-slim`](https://github.com/nooulaif/docker-rails/blob/master/2.4-slim.dockerfile)
-- [`2.4-alpine`](https://github.com/nooulaif/docker-rails/blob/master/2.4-alpine.dockerfile)
+- [`2.4-slim`, `2-slim`](https://github.com/nooulaif/docker-rails/blob/master/2.4-slim.dockerfile)
+- [`2.4-alpine`, `2-alpine`](https://github.com/nooulaif/docker-rails/blob/master/2.4-alpine.dockerfile)
 - [`2.3`](https://github.com/nooulaif/docker-rails/blob/master/2.3.dockerfile)
-- [`2.3-slim`, `2-slim`](https://github.com/nooulaif/docker-rails/blob/master/2.3-slim.dockerfile)
-- [`2.3-alpine`, `2-alpine`](https://github.com/nooulaif/docker-rails/blob/master/2.3-alpine.dockerfile)
+- [`2.3-slim`](https://github.com/nooulaif/docker-rails/blob/master/2.3-slim.dockerfile)
+- [`2.3-alpine`](https://github.com/nooulaif/docker-rails/blob/master/2.3-alpine.dockerfile)
 - [`2.2`](https://github.com/nooulaif/docker-rails/blob/master/2.2.dockerfile)
 - [`2.2-slim`](https://github.com/nooulaif/docker-rails/blob/master/2.2-slim.dockerfile)
 - [`2.2-alpine`](https://github.com/nooulaif/docker-rails/blob/master/2.2-alpine.dockerfile)
