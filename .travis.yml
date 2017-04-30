@@ -5,8 +5,8 @@ services:
 
 env:
   global:
-    - DOCKER_VERSION=1.11.2-0~trusty
-    - DOCKER_COMPOSE_VERSION=1.7.1
+    - DOCKER_VERSION=17.04.0~ce-0~ubuntu-trusty
+    - DOCKER_COMPOSE_VERSION=1.12.0
   matrix:
     - TAG=2.4 RAILS_VERSION=5.1
     - TAG=2.4 RAILS_VERSION=5.0
