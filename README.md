@@ -5,15 +5,15 @@ Based on [official Ruby images](https://hub.docker.com/_/ruby/).
 
 ## Supported tags
 
+- [`2.4`](https://github.com/nooulaif/docker-rails/blob/master/2.4.dockerfile)
+- [`2.4-slim`](https://github.com/nooulaif/docker-rails/blob/master/2.4-slim.dockerfile)
+- [`2.4-alpine`](https://github.com/nooulaif/docker-rails/blob/master/2.4-alpine.dockerfile)
 - [`2.3`, `2`, `latest`](https://github.com/nooulaif/docker-rails/blob/master/2.3.dockerfile)
 - [`2.3-slim`, `2-slim`](https://github.com/nooulaif/docker-rails/blob/master/2.3-slim.dockerfile)
 - [`2.3-alpine`, `2-alpine`](https://github.com/nooulaif/docker-rails/blob/master/2.3-alpine.dockerfile)
 - [`2.2`](https://github.com/nooulaif/docker-rails/blob/master/2.2.dockerfile)
 - [`2.2-slim`](https://github.com/nooulaif/docker-rails/blob/master/2.2-slim.dockerfile)
 - [`2.2-alpine`](https://github.com/nooulaif/docker-rails/blob/master/2.2-alpine.dockerfile)
-- [`2.1`](https://github.com/nooulaif/docker-rails/blob/master/2.1.dockerfile)
-- [`2.1-slim`](https://github.com/nooulaif/docker-rails/blob/master/2.1-slim.dockerfile)
-- [`2.1-alpine`](https://github.com/nooulaif/docker-rails/blob/master/2.1-alpine.dockerfile)
 
 ## Experimental tags
 
@@ -21,11 +21,11 @@ Based on [official Ruby images](https://hub.docker.com/_/ruby/).
 - [`4-mini`](https://github.com/nooulaif/docker-rails/blob/master/4-mini.dockerfile)
 
 ## Features
-- Does not comes with any preinstalled version of rails, so you can choose by yourself
+- Does not comes with any pre-installed version of rails, so you can choose by yourself
 - Uses [gosu](https://github.com/tianon/gosu) to better handle su and sudo commands
 - Automatically creates and prepares new rails app
 - Runs bundle install & rake db:migrate on every restart for quick development
-- For production modyfies log output to stdout and formats it for [Logstash](https://www.elastic.co/products/logstash)
+- For production modifies log output to stdout and formats it for [Logstash](https://www.elastic.co/products/logstash)
 - In development adds docker network as trusted for web console
 - Includes [pry](http://pryrepl.org/) for easier debugging
 - Solves problem with wrong permissions on shared volumes by matching UIDs
@@ -43,14 +43,20 @@ by passing one or more environment variables.
 
 ### RAILS_VERSION
 
-Default: `'~> 5.0'`
+Default: Based on ruby version.
 
-You can specyfi what version of rails you want to install.
+| Ruby version | Default rails version |
+|:------------:|:---------------------:|
+|      2.4     |         ~> 5.1        |
+|      2.3     |         ~> 5.0        |
+|      2.2     |         ~> 4.2        |
 
-Instalation will occur once and only if run command wasn't
+You can specify what version of rails you want to install.
+
+Installation will occur once and only if run command wasn't
 changed or it starts with `rails`, `rake` or `bundle`.
 
-Note: Has no effect in mini versions, because they have rails preinstalled.
+Note: Has no effect in mini versions, because they have rails pre-installed.
 
 ### APP_NAME
 
@@ -80,7 +86,7 @@ files is present rails new command will not be triggered.
 
 Default: `[empty string]`
 
-You can add additional files to whitelist when checking for rails new command to run.
+You can add additional files to white-list when checking for rails new command to run.
 
 For example `RAILS_NEW_IGNORED_FILES=Dockerfile.production,compose-production.yml`
 
@@ -126,7 +132,7 @@ Password for your database user.
 ## Image variants
 
 ### Based on official docker ruby images
-Consult [official readme](https://hub.docker.com/_/ruby/) for diffrence between
+Consult [official readme](https://hub.docker.com/_/ruby/) for difference between
 `<version>`, `<version>-slim` and `<version>-alpine` images.
 
 ### Mini
@@ -147,12 +153,12 @@ and use image build with it.
 
 ```Dockerfile
 FROM nooulaif/rails:latest
-ENV RAILS_VERSION=5.0.0
+ENV RAILS_VERSION=5.1.0
 RUN /home/app/install_rails.sh
 ```
 
 ## Supported Docker versions
-This image was tested with Docker version 1.11.2.
+This image was tested with Docker version 17.04 and should work with any version above 1.11.2
 
 I would be very pleased to hear whether or not it works on older versions as well.
 
