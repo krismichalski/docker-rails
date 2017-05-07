@@ -1,5 +1,5 @@
 FROM ruby:2.4-alpine
-MAINTAINER contact@nooulaif.com
+MAINTAINER kristopher.michalski@gmail.com
 
 # Set all environment variables at once
 ENV GOSU_VERSION=1.10 \

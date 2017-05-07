@@ -1,5 +1,5 @@
 FROM alpine:3.4
-MAINTAINER contact@nooulaif.com
+MAINTAINER kristopher.michalski@gmail.com
 
 # Set all environment variables at once
 ENV RUBY_MAJOR=2.3 \

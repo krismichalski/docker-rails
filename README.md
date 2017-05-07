@@ -1,24 +1,24 @@
-# docker-rails [![Build Status](https://travis-ci.org/nooulaif/docker-rails.svg?branch=master)](https://travis-ci.org/nooulaif/docker-rails)
+# docker-rails [![Build Status](https://travis-ci.org/krismichalski/docker-rails.svg?branch=master)](https://travis-ci.org/krismichalski/docker-rails)
 
 Ready to use [Docker](https://www.docker.com/) image for running [Ruby on Rails](http://rubyonrails.org/) applications.
 Based on [official Ruby images](https://hub.docker.com/_/ruby/).
 
 ## Supported tags
 
-- [`2.4`, `2`, `latest`](https://github.com/nooulaif/docker-rails/blob/master/2.4.dockerfile)
-- [`2.4-slim`, `2-slim`](https://github.com/nooulaif/docker-rails/blob/master/2.4-slim.dockerfile)
-- [`2.4-alpine`, `2-alpine`](https://github.com/nooulaif/docker-rails/blob/master/2.4-alpine.dockerfile)
-- [`2.3`](https://github.com/nooulaif/docker-rails/blob/master/2.3.dockerfile)
-- [`2.3-slim`](https://github.com/nooulaif/docker-rails/blob/master/2.3-slim.dockerfile)
-- [`2.3-alpine`](https://github.com/nooulaif/docker-rails/blob/master/2.3-alpine.dockerfile)
-- [`2.2`](https://github.com/nooulaif/docker-rails/blob/master/2.2.dockerfile)
-- [`2.2-slim`](https://github.com/nooulaif/docker-rails/blob/master/2.2-slim.dockerfile)
-- [`2.2-alpine`](https://github.com/nooulaif/docker-rails/blob/master/2.2-alpine.dockerfile)
+- [`2.4`, `2`, `latest`](https://github.com/krismichalski/docker-rails/blob/master/2.4.dockerfile)
+- [`2.4-slim`, `2-slim`](https://github.com/krismichalski/docker-rails/blob/master/2.4-slim.dockerfile)
+- [`2.4-alpine`, `2-alpine`](https://github.com/krismichalski/docker-rails/blob/master/2.4-alpine.dockerfile)
+- [`2.3`](https://github.com/krismichalski/docker-rails/blob/master/2.3.dockerfile)
+- [`2.3-slim`](https://github.com/krismichalski/docker-rails/blob/master/2.3-slim.dockerfile)
+- [`2.3-alpine`](https://github.com/krismichalski/docker-rails/blob/master/2.3-alpine.dockerfile)
+- [`2.2`](https://github.com/krismichalski/docker-rails/blob/master/2.2.dockerfile)
+- [`2.2-slim`](https://github.com/krismichalski/docker-rails/blob/master/2.2-slim.dockerfile)
+- [`2.2-alpine`](https://github.com/krismichalski/docker-rails/blob/master/2.2-alpine.dockerfile)
 
 ## Experimental tags (no longer supported)
 
-- [`5-mini`](https://github.com/nooulaif/docker-rails/blob/master/5-mini.dockerfile)
-- [`4-mini`](https://github.com/nooulaif/docker-rails/blob/master/4-mini.dockerfile)
+- [`5-mini`](https://github.com/krismichalski/docker-rails/blob/master/5-mini.dockerfile)
+- [`4-mini`](https://github.com/krismichalski/docker-rails/blob/master/4-mini.dockerfile)
 
 ## Features
 - Does not comes with any pre-installed version of rails, so you can choose by yourself
@@ -33,7 +33,7 @@ Based on [official Ruby images](https://hub.docker.com/_/ruby/).
 ## Quick start
 Execute this command in empty folder:
 ```bash
-docker run -it -v $(pwd):/home/app/webapp -p 3000:3000 nooulaif/rails:latest
+docker run -it -v $(pwd):/home/app/webapp -p 3000:3000 krismichalski/rails:latest
 ```
 
 ## Environment variables
@@ -145,14 +145,14 @@ Instead of installing every single gem from Gemfile each time you want to add ne
 I recommend to create docker volume and mount it to /home/app/bundle.
 Thanks to that you can install only new gems.
 
-See [example docker-compose.yml](https://github.com/nooulaif/docker-rails/blob/master/example-compose.yml)
+See [example docker-compose.yml](https://github.com/krismichalski/docker-rails/blob/master/example-compose.yml)
 for a way to achieve this.
 
 Also to avoid installing rails over and over again it's probably a good idea to place below Dockerfile in root of your app
 and use image build with it.
 
 ```Dockerfile
-FROM nooulaif/rails:latest
+FROM krismichalski/rails:latest
 ENV RAILS_VERSION=5.1.0
 RUN /home/app/install_rails.sh
 ```
@@ -163,7 +163,7 @@ This image was tested with Docker version 17.04 and should work with any version
 I would be very pleased to hear whether or not it works on older versions as well.
 
 ## Issues
-If you have any problems with or questions about this image, please contact me through a [GitHub issue](https://github.com/nooulaif/docker-rails/issues).
+If you have any problems with or questions about this image, please contact me through a [GitHub issue](https://github.com/krismichalski/docker-rails/issues).
 
 ## Contributing
 You are invited to contribute new features, fixes, or updates, large or small.
@@ -171,4 +171,4 @@ You are invited to contribute new features, fixes, or updates, large or small.
 I'm always thrilled to receive pull requests, and do my best to process them as fast as I can.
 
 ## License
-Released under the MIT License. See [LICENSE](https://github.com/nooulaif/docker-rails/blob/master/LICENSE) file for details.
+Released under the MIT License. See [LICENSE](https://github.com/krismichalski/docker-rails/blob/master/LICENSE) file for details.
