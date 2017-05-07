@@ -35,7 +35,7 @@ before_install:
   - docker-compose version
 
 script:
-  - docker build -f ${TAG}.dockerfile -t nooulaif/rails:${TAG} .
+  - docker build -f ${TAG}.dockerfile -t krismichalski/rails:${TAG} .
   - cd test
   - sed -i "s/latest/${TAG}/g" docker-compose.yml
   - export TRAVIS_USER_ID=$(id -u)
